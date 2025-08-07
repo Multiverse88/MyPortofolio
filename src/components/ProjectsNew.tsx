@@ -60,13 +60,16 @@ const ProjectsNew = () => {
   const [previewLoading, setPreviewLoading] = useState<{ [key: number]: boolean }>({});
   const [showLoginInfo, setShowLoginInfo] = useState<number | null>(null);
 
+  // Debug logging
+  console.log('ProjectsNew: isMobile =', isMobile, 'projects count =', projects.length);
+
   return (
-    <section id="projects" className="pt-12 pb-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="pt-12 pb-20 bg-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8 }}
         >
           {/* Section Title */}
@@ -93,47 +96,56 @@ const ProjectsNew = () => {
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Here are some projects that showcase my skills and experience in modern web development.
             </p>
+            {/* Mobile indicator for debugging */}
+            {isMobile && (
+              <div className="mt-4 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg inline-block text-sm">
+                📱 Mobile View Active - {projects.length} projects to show
+              </div>
+            )}
           </motion.div>
 
           {/* Projects Grid */}
           <motion.div 
-            className="space-y-20"
+            className="space-y-12 md:space-y-20"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.1, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] as any }}
           >
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
                 className="group"
-                initial={{ opacity: 0, y: 60 }}
+                initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.1, margin: "-50px" }}
                 transition={{ 
-                  duration: 0.8, 
-                  delay: index * 0.2,
+                  duration: 0.6, 
+                  delay: isMobile ? 0 : index * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94] as any
                 }}
               >
-                <div className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                <div className={`${
+                  isMobile 
+                    ? 'flex flex-col space-y-6'
+                    : `grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`
                 }`}>
                   {/* Project Image */}
                   <motion.div 
                     className={`relative ${
                       index % 2 === 1 ? 'lg:order-2' : ''
                     }`}
-                    whileHover={{ scale: 1.02, rotateY: 5 }}
+                    whileHover={isMobile ? {} : { scale: 1.02, rotateY: 5 }}
                     transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as any }}
                   >
                     <div className="relative">
                       {/* 3D Card Container */}
                       <motion.div 
-                        className="relative bg-white rounded-3xl shadow-2xl overflow-hidden transform-gpu"
-                        style={{ 
+                        className="relative bg-white rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl overflow-hidden transform-gpu"
+                        style={ isMobile ? {} : { 
                           transformStyle: 'preserve-3d',
                         }}
-                        whileHover={{ 
+                        whileHover={isMobile ? {} : { 
                           rotateX: 5,
                           rotateY: index % 2 === 1 ? -10 : 10,
                           z: 50 
@@ -441,9 +453,10 @@ const ProjectsNew = () => {
                     className={`space-y-6 ${
                       index % 2 === 1 ? 'lg:order-1' : ''
                     }`}
-                    initial={{ opacity: 0, x: index % 2 === 1 ? -50 : 50 }}
+                    initial={isMobile ? { opacity: 1 } : { opacity: 0, x: (index % 2 === 1 ? -30 : 30) }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as any }}
+                    viewport={{ once: true, amount: 0.2, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: isMobile ? 0 : 0.2, ease: [0.25, 0.46, 0.45, 0.94] as any }}
                   >
                     {/* Project Badge */}
                     <motion.div
@@ -478,12 +491,13 @@ const ProjectsNew = () => {
                             className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
                             initial={{ opacity: 0, scale: 0.8 }}
                             whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true, amount: 0.5 }}
                             transition={{ 
                               duration: 0.3, 
-                              delay: techIndex * 0.05,
+                              delay: isMobile ? 0 : techIndex * 0.05,
                               ease: [0.25, 0.46, 0.45, 0.94] as any
                             }}
-                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileHover={isMobile ? {} : { scale: 1.05, y: -2 }}
                           >
                             {tech}
                           </motion.span>
