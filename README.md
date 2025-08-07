@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
+
+A modern, responsive portfolio website built with Next.js, TypeScript, Framer Motion, and Tailwind CSS.
+
+## Features
+
+- ✨ **Modern Design** - Clean and professional UI/UX
+- 🎭 **Smooth Animations** - Beautiful animations with Framer Motion
+- 📱 **Fully Responsive** - Works perfectly on all devices
+- ⚡ **Fast Performance** - Optimized with Next.js
+- 🎨 **Tailwind CSS** - Utility-first CSS framework
+- 🔧 **TypeScript** - Type-safe development
+- 📧 **Contact Form** - Functional contact form
+- 🚀 **Easy Deployment** - Ready to deploy on Vercel
+
+## Tech Stack
+
+- **Framework:** Next.js 14
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Responsive:** React Responsive
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/portfolio-nextjs.git
+   cd portfolio-nextjs
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Open [http://localhost:3000](http://localhost:3000) to see the result.
+
+## Customization
+
+### Personal Information
+Update your personal information in the following components:
+- `src/components/Hero.tsx` - Name, title, bio
+- `src/components/About.tsx` - About section, skills
+- `src/components/Contact.tsx` - Contact information
+- `src/components/Footer.tsx` - Footer information
+
+### Projects
+Update your projects in `src/components/Projects.tsx`:
+- Add your project details
+- Replace placeholder images
+- Update GitHub and live demo URLs
+
+### Skills
+Update your skills in `src/components/About.tsx`:
+- Modify the skills array
+- Adjust skill levels (1-100)
+- Add/remove skill categories
+
+### Contact Form
+The contact form is ready to use but needs backend integration:
+- Update the form submission logic in `src/components/Contact.tsx`
+- Integrate with your preferred email service (EmailJS, Nodemailer, etc.)
+
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Connect to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Vercel will automatically detect Next.js and deploy
+
+3. **Custom Domain (Optional)**
+   - Add your custom domain in Vercel dashboard
+   - Update DNS settings
+
+## Project Structure
+
+```
+portfolio-nextjs/
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── About.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── Hero.tsx
+│   │   └── Projects.tsx
+│   └── types/
+│       └── index.ts
+├── public/
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is licensed under the MIT License.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with ❤️ and Next.js
