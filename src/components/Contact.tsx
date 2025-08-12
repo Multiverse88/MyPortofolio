@@ -34,14 +34,14 @@ const Contact = () => {
     {
       name: 'Email',
       icon: '✉️',
-      value: 'hello@example.com',
-      href: 'mailto:hello@example.com',
+      value: 'ainanbahrul@gmail.com',
+      href: 'mailto:ainanbahrul@gmail.com',
       color: 'from-red-500 to-pink-500'
     },
     {
       name: 'LinkedIn',
       icon: '💼',
-      value: '/in/yourprofile',
+      value: '/ainan-bahrul-ihsan',
       href: 'https://www.linkedin.com/in/ainan-bahrul-ihsan/',
       color: 'from-blue-500 to-cyan-500'
     },
@@ -51,13 +51,6 @@ const Contact = () => {
       value: '@Multiverse88',
       href: 'https://github.com/Multiverse88',
       color: 'from-gray-700 to-gray-900'
-    },
-    {
-      name: 'Twitter',
-      icon: '🐦',
-      value: '@yourusername',
-      href: 'https://twitter.com',
-      color: 'from-blue-400 to-blue-600'
     }
   ];
 

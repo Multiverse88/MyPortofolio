@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
+import ProfileImage from './ProfileImage';
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -100,7 +101,7 @@ const Hero = () => {
               <h2 className={`font-bold text-gray-700 ${
                 isMobile ? 'text-xl' : 'text-2xl'
               }`}>
-                Full Stack Developer & UI/UX Designer
+                Full Stack Developer & Cloud Computing Enthusiast
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed max-w-xl">
                 I create beautiful and functional digital experiences using modern technologies. 
@@ -197,44 +198,32 @@ const Hero = () => {
               >
                 {/* Character Avatar */}
                 <motion.div className="text-center space-y-6">
-                  {/* Face */}
+                  {/* Professional Photo */}
                   <motion.div 
-                    className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-200 to-orange-300 rounded-full flex items-center justify-center shadow-2xl relative"
-                    whileHover={{ rotate: 10 }}
-                    transition={{ duration: 0.3 }}
+                    className="relative"
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.3 }
+                    }}
                   >
-                    {/* Eyes */}
-                    <div className="absolute top-8 left-10 w-3 h-3 bg-gray-800 rounded-full"></div>
-                    <div className="absolute top-8 right-10 w-3 h-3 bg-gray-800 rounded-full"></div>
-                    
-                    {/* Smile */}
-                    <motion.div 
-                      className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-8 h-4 border-b-4 border-gray-800 rounded-b-full"
-                      animate={{ scaleX: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                    <ProfileImage 
+                      size="medium" 
+                      className="border-4 border-white"
                     />
                     
-                    {/* Glasses */}
+                    {/* Online Status Indicator */}
                     <motion.div 
-                      className="absolute top-6 left-1/2 transform -translate-x-1/2 w-16 h-8 border-4 border-gray-700 rounded-2xl bg-blue-100/30"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 1 }}
-                      whileHover={{ y: -2 }}
-                    >
-                      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-1 bg-gray-700 rounded-full"></div>
-                      <div className="absolute -right-2 top-1/2 transform -translate-y-1/2 w-4 h-1 bg-gray-700 rounded-full"></div>
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-2 bg-gray-700 rounded-full"></div>
-                    </motion.div>
-
-                    {/* Cap */}
-                    <motion.div 
-                      className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-20 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-full"
-                      animate={{ rotateZ: [0, 2, 0, -2, 0] }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                    >
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-3 bg-gradient-to-r from-blue-700 to-purple-700 rounded-full shadow-lg"></div>
-                    </motion.div>
+                      className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-lg"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [1, 0.8, 1]
+                      }}
+                      transition={{ 
+                        duration: 2, 
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
                   </motion.div>
 
                   {/* Character Info */}

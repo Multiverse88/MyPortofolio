@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import { Skill } from '@/types';
+import ProfileImage from './ProfileImage';
 
 const About = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -111,9 +112,9 @@ const About = () => {
               <div className="bg-gradient-to-br from-[#34699A] to-[#113F67] rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700">
                 <div className="bg-white rounded-2xl p-8 text-center">
                   
-                  {/* 3D Avatar */}
+                  {/* Professional Photo */}
                   <motion.div 
-                    className="mx-auto mb-6 w-32 h-32 bg-gradient-to-br from-[#58A0C8] to-[#34699A] rounded-2xl flex items-center justify-center shadow-lg"
+                    className="mx-auto mb-6"
                     whileHover={{ 
                       rotateY: 15,
                       rotateX: 15,
@@ -125,19 +126,7 @@ const About = () => {
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    {/* 3D Character Representation */}
-                    <div className="relative">
-                      <div className="w-20 h-20 bg-gradient-to-br from-orange-300 to-orange-400 rounded-full mb-2 relative">
-                        {/* Face */}
-                        <div className="absolute top-3 left-4 w-3 h-3 bg-white rounded-full"></div>
-                        <div className="absolute top-3 right-4 w-3 h-3 bg-white rounded-full"></div>
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-6 h-3 bg-white rounded-full"></div>
-                      </div>
-                      {/* Cap */}
-                      <div className="absolute -top-2 left-2 w-16 h-8 bg-green-400 rounded-full"></div>
-                      {/* Glasses */}
-                      <div className="absolute top-6 left-3 w-14 h-6 border-4 border-orange-600 rounded-full opacity-60"></div>
-                    </div>
+                    <ProfileImage size="medium" />
                   </motion.div>
                   
                   {/* Name and Title */}

@@ -19,14 +19,8 @@ const Footer = () => {
       color: 'from-[#113F67] to-gray-900',
     },
     {
-      name: 'Twitter',
-      href: 'https://twitter.com',
-      icon: '🐦',
-      color: 'from-[#9ECAD6] to-[#58A0C8]',
-    },
-    {
       name: 'Email',
-      href: 'mailto:hello@example.com',
+      href: 'mailto:ainanbahrul@gmail.com',
       icon: '✉️',
       color: 'from-[#34699A] to-[#113F67]',
     },
