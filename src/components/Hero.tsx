@@ -119,7 +119,6 @@ const Hero = () => {
             >
               {[
                 { number: '3+', label: 'Years Experience' },
-                { number: '50+', label: 'Projects Completed' },
                 { number: '100%', label: 'Client Satisfaction' }
               ].map((stat, index) => (
                 <motion.div 
