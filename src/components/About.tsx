@@ -182,7 +182,7 @@ const About = () => {
                   >
                     <span className="text-sm text-gray-600 mr-2">Follow On</span>
                     <motion.a 
-                      href="#" 
+                      href="https://www.instagram.com/ainanajalah_/" 
                       className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}
