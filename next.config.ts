@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
     formats: ['image/webp', 'image/avif'],
+    domains: ['github.com', 'avatars.githubusercontent.com', 'res.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        pathname: '/**',
+      },
+    ],
   },
   
   // Compress pages for better performance

@@ -2,20 +2,32 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { profileImageSVG } from '@/utils/images';
 
 interface ProfileImageProps {
   size?: 'small' | 'medium' | 'large';
   className?: string;
   showFallback?: boolean;
+  imageUrl?: string; // Allow custom image URL
 }
 
 const ProfileImage = ({ 
   size = 'medium', 
   className = '', 
-  showFallback = true 
+  showFallback = true,
+  imageUrl // Custom image URL prop
 }: ProfileImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+
+  // Image sources in order of preference
+  const imageSources = [
+    imageUrl, // Custom URL if provided
+    '/images/ainan-profile.jpg', // Local file (highest priority)
+    '/images/ainan-profile.jpg?v=1', // Cache busting version
+    'https://github.com/Multiverse88.png', // GitHub avatar as backup
+    profileImageSVG // SVG fallback
+  ].filter(Boolean);
 
   const sizeClasses = {
     small: 'w-20 h-20',
@@ -74,9 +86,9 @@ const ProfileImage = ({
       {/* Loading state */}
       {!imageLoaded && <LoadingPlaceholder />}
       
-      {/* Actual image */}
+      {/* Actual image with multiple sources */}
       <motion.img 
-        src="/images/ainan-profile.jpg"
+        src={imageSources[0]} // Try first source
         alt="Ainan Bahrul Ihsan - Full Stack Developer"
         className={`${sizeClasses[size]} object-cover object-center rounded-2xl shadow-lg transition-opacity duration-500 ${
           imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'
@@ -85,7 +97,18 @@ const ProfileImage = ({
           filter: 'grayscale(5%) contrast(1.1) brightness(1.05)',
         }}
         onLoad={() => setImageLoaded(true)}
-        onError={() => setImageError(true)}
+        onError={(e) => {
+          // Try next image source
+          const currentSrc = e.currentTarget.src;
+          const currentIndex = imageSources.indexOf(currentSrc);
+          const nextIndex = currentIndex + 1;
+          
+          if (nextIndex < imageSources.length && imageSources[nextIndex]) {
+            e.currentTarget.src = imageSources[nextIndex]!;
+          } else {
+            setImageError(true);
+          }
+        }}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ 
           scale: imageLoaded ? 1 : 0.9, 
