@@ -114,7 +114,7 @@ const About = () => {
                   
                   {/* Professional Photo */}
                   <motion.div 
-                    className="mx-auto mb-6"
+                    className="mx-auto mb-6 w-32 h-32"
                     whileHover={{ 
                       rotateY: 15,
                       rotateX: 15,
@@ -126,7 +126,21 @@ const About = () => {
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <ProfileImage size="medium" />
+                    <img 
+                      src="/images/ainan-profile.jpg"
+                      alt="Ainan Bahrul Ihsan - Full Stack Developer"
+                      className="w-full h-full object-cover object-center rounded-2xl shadow-lg"
+                      style={{
+                        display: 'block',
+                        width: '8rem',
+                        height: '8rem',
+                        filter: 'grayscale(5%) contrast(1.1) brightness(1.05)',
+                      }}
+                      onError={(e) => {
+                        // Fallback to GitHub avatar
+                        e.currentTarget.src = 'https://github.com/Multiverse88.png';
+                      }}
+                    />
                   </motion.div>
                   
                   {/* Name and Title */}

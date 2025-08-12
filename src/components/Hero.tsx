@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import ProfileImage from './ProfileImage';
+import ProfileImageDebug from './ProfileImageDebug';
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -206,10 +207,24 @@ const Hero = () => {
                       transition: { duration: 0.3 }
                     }}
                   >
-                    <ProfileImage 
-                      size="medium" 
-                      className="border-4 border-white"
-                    />
+                    {/* Professional Photo - Fixed Version */}
+                    <div className="w-32 h-32 mx-auto">
+                      <img 
+                        src="/images/ainan-profile.jpg"
+                        alt="Ainan Bahrul Ihsan - Full Stack Developer"
+                        className="w-full h-full object-cover object-center rounded-2xl shadow-lg border-4 border-white"
+                        style={{
+                          display: 'block',
+                          width: '8rem',
+                          height: '8rem',
+                          filter: 'grayscale(5%) contrast(1.1) brightness(1.05)',
+                        }}
+                        onError={(e) => {
+                          // Fallback to GitHub avatar
+                          e.currentTarget.src = 'https://github.com/Multiverse88.png';
+                        }}
+                      />
+                    </div>
                     
                     {/* Online Status Indicator */}
                     <motion.div 

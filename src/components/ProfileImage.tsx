@@ -19,6 +19,7 @@ const ProfileImage = ({
 }: ProfileImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [currentSource, setCurrentSource] = useState(0);
 
   // Image sources in order of preference
   const imageSources = [
@@ -28,6 +29,16 @@ const ProfileImage = ({
     'https://github.com/Multiverse88.png', // GitHub avatar as backup
     profileImageSVG // SVG fallback
   ].filter(Boolean);
+
+  // Debug logging
+  console.log('ProfileImage Debug:', {
+    size,
+    imageLoaded,
+    imageError,
+    currentSource,
+    totalSources: imageSources.length,
+    currentImageUrl: imageSources[currentSource]
+  });
 
   const sizeClasses = {
     small: 'w-20 h-20',
@@ -88,24 +99,31 @@ const ProfileImage = ({
       
       {/* Actual image with multiple sources */}
       <motion.img 
-        src={imageSources[0]} // Try first source
+        src={imageSources[currentSource]} // Use current source index
         alt="Ainan Bahrul Ihsan - Full Stack Developer"
         className={`${sizeClasses[size]} object-cover object-center rounded-2xl shadow-lg transition-opacity duration-500 ${
           imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'
         }`}
         style={{
           filter: 'grayscale(5%) contrast(1.1) brightness(1.05)',
+          display: 'block !important', // Force display
         }}
-        onLoad={() => setImageLoaded(true)}
+        onLoad={() => {
+          console.log('Image loaded successfully:', imageSources[currentSource]);
+          setImageLoaded(true);
+        }}
         onError={(e) => {
+          console.log('Image error:', e.currentTarget.src);
           // Try next image source
-          const currentSrc = e.currentTarget.src;
-          const currentIndex = imageSources.indexOf(currentSrc);
-          const nextIndex = currentIndex + 1;
+          const nextIndex = currentSource + 1;
           
           if (nextIndex < imageSources.length && imageSources[nextIndex]) {
+            console.log('Trying next source:', imageSources[nextIndex]);
+            setCurrentSource(nextIndex);
+            setImageLoaded(false);
             e.currentTarget.src = imageSources[nextIndex]!;
           } else {
+            console.log('All sources failed, showing fallback');
             setImageError(true);
           }
         }}
