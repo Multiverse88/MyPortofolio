@@ -6,15 +6,22 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true npm run build",
+    "lighthouse": "lighthouse http://localhost:3000 --output=json --output=html --form-factor=mobile --throttling-method=simulate --quiet --chrome-flags=\"--headless\"",
+    "perf:test": "npm run build && npm run lighthouse",
+    "perf:mobile": "lighthouse http://localhost:3000 --preset=perf --form-factor=mobile --throttling.cpuSlowdownMultiplier=4 --output=json",
+    "bundle-analyzer": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@types/react-responsive": "^8.0.8",
     "autoprefixer": "^10.4.21",
     "framer-motion": "^12.23.12",
     "next": "15.4.5",
+    "pdfjs-dist": "^5.3.31",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-pdf": "^10.0.1",
     "react-responsive": "^10.0.1",
     "tailwindcss": "^3.4.0"
   },
@@ -26,5 +33,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

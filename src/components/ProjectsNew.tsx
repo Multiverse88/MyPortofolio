@@ -51,6 +51,19 @@ const projects = [
     featured: false,
     hasLivePreview: true,
     requiresLogin: false
+  },
+  {
+    id: 4,
+    title: "Project Detailing - Automotive Detailing Services",
+    description: "A modern and professional website for automotive detailing services. Features service showcase, booking system, gallery of work, pricing information, and customer testimonials. Built with responsive design and smooth animations.",
+    technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+    githubUrl: "https://github.com/Multiverse88/project-detailing", // Adjust if different
+    liveUrl: "https://project-detailing.vercel.app/",
+    previewUrl: "https://project-detailing.vercel.app/",
+    image: null,
+    featured: false,
+    hasLivePreview: true,
+    requiresLogin: false
   }
 ];
 

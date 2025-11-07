@@ -1,0 +1,36 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="url(#grad2)"/>
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f7931e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd23f;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Bangkit Logo -->
+  <g transform="translate(50, 50)">
+    <rect width="60" height="60" rx="12" fill="white"/>
+    <text x="30" y="38" text-anchor="middle" fill="#ff6b35" font-family="Arial" font-weight="bold" font-size="12">BANGKIT</text>
+  </g>
+  
+  <!-- Certificate Title -->
+  <text x="200" y="80" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Bangkit Academy</text>
+  <text x="200" y="105" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Cloud Computing Path</text>
+  
+  <!-- Certificate Content -->
+  <text x="200" y="140" text-anchor="middle" fill="white" font-family="Arial" font-size="14">This certifies that</text>
+  <text x="200" y="165" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="16">Ainan Bahrul Ihsan</text>
+  <text x="200" y="185" text-anchor="middle" fill="white" font-family="Arial" font-size="14">has successfully completed the</text>
+  <text x="200" y="205" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Cloud Computing Learning Path</text>
+  
+  <!-- Partners -->
+  <text x="200" y="230" text-anchor="middle" fill="white" font-family="Arial" font-size="10">by Google, Tokopedia, Gojek &amp; Traveloka</text>
+  
+  <!-- Date -->
+  <text x="200" y="250" text-anchor="middle" fill="white" font-family="Arial" font-size="12">July 2024</text>
+  
+  <!-- Decorative Elements -->
+  <polygon points="350,40 360,60 340,60" fill="rgba(255,255,255,0.3)"/>
+  <rect x="40" y="240" width="20" height="20" rx="4" fill="rgba(255,255,255,0.3)"/>
+</svg>

@@ -1,0 +1,32 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="url(#grad3)"/>
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Coursera Logo -->
+  <g transform="translate(50, 50)">
+    <rect width="60" height="60" rx="12" fill="white"/>
+    <text x="30" y="38" text-anchor="middle" fill="#667eea" font-family="Arial" font-weight="bold" font-size="10">COURSERA</text>
+  </g>
+  
+  <!-- Certificate Title -->
+  <text x="200" y="80" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Full Stack Web</text>
+  <text x="200" y="105" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Development</text>
+  
+  <!-- Certificate Content -->
+  <text x="200" y="140" text-anchor="middle" fill="white" font-family="Arial" font-size="14">This certifies that</text>
+  <text x="200" y="165" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="16">Ainan Bahrul Ihsan</text>
+  <text x="200" y="185" text-anchor="middle" fill="white" font-family="Arial" font-size="14">has completed the</text>
+  <text x="200" y="205" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Full Stack Web Development Course</text>
+  
+  <!-- Date -->
+  <text x="200" y="240" text-anchor="middle" fill="white" font-family="Arial" font-size="12">March 2024</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="350" cy="50" r="25" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="250" r="10" fill="rgba(255,255,255,0.3)"/>
+</svg>

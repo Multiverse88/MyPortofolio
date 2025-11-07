@@ -1,0 +1,33 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="url(#grad6)"/>
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00758F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E97826;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- MySQL Logo -->
+  <g transform="translate(50, 50)">
+    <rect width="60" height="60" rx="12" fill="white"/>
+    <text x="30" y="38" text-anchor="middle" fill="#00758F" font-family="Arial" font-weight="bold" font-size="12">MySQL</text>
+  </g>
+  
+  <!-- Certificate Title -->
+  <text x="200" y="80" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Database Design</text>
+  <text x="200" y="105" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">and Management</text>
+  
+  <!-- Certificate Content -->
+  <text x="200" y="140" text-anchor="middle" fill="white" font-family="Arial" font-size="14">This certifies that</text>
+  <text x="200" y="165" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="16">Ainan Bahrul Ihsan</text>
+  <text x="200" y="185" text-anchor="middle" fill="white" font-family="Arial" font-size="14">has completed the</text>
+  <text x="200" y="205" text-anchor="middle" fill="white" font-family="Arial" font-size="14">Database Design and Management Course</text>
+  
+  <!-- Date -->
+  <text x="200" y="240" text-anchor="middle" fill="white" font-family="Arial" font-size="12">November 2023</text>
+  
+  <!-- Decorative Elements -->
+  <rect x="320" y="40" width="40" height="40" rx="8" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="250" r="8" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="70" cy="250" r="5" fill="rgba(255,255,255,0.2)"/>
+</svg>

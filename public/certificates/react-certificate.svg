@@ -1,0 +1,33 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="url(#grad5)"/>
+  <defs>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4267B2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#898989;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Meta Logo -->
+  <g transform="translate(50, 50)">
+    <rect width="60" height="60" rx="12" fill="white"/>
+    <text x="30" y="38" text-anchor="middle" fill="#4267B2" font-family="Arial" font-weight="bold" font-size="14">META</text>
+  </g>
+  
+  <!-- Certificate Title -->
+  <text x="200" y="80" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">React Developer</text>
+  <text x="200" y="105" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="18">Certification</text>
+  
+  <!-- Certificate Content -->
+  <text x="200" y="140" text-anchor="middle" fill="white" font-family="Arial" font-size="14">This certifies that</text>
+  <text x="200" y="165" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="16">Ainan Bahrul Ihsan</text>
+  <text x="200" y="185" text-anchor="middle" fill="white" font-family="Arial" font-size="14">has completed the</text>
+  <text x="200" y="205" text-anchor="middle" fill="white" font-family="Arial" font-size="14">React Developer Certification Program</text>
+  
+  <!-- Date -->
+  <text x="200" y="240" text-anchor="middle" fill="white" font-family="Arial" font-size="12">December 2023</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="350" cy="50" r="30" stroke="rgba(255,255,255,0.2)" stroke-width="3" fill="none"/>
+  <circle cx="350" cy="50" r="20" fill="rgba(255,255,255,0.1)"/>
+  <polygon points="40,240 60,240 50,260" fill="rgba(255,255,255,0.2)"/>
+</svg>
