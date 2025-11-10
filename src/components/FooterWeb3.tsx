@@ -2,8 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { HiMail } from 'react-icons/hi';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const FooterWeb3 = () => {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const currentYear = new Date().getFullYear();
 
@@ -15,36 +19,36 @@ const FooterWeb3 = () => {
     {
       name: 'LinkedIn',
       href: 'https://www.linkedin.com/in/ainan-bahrul-ihsan/',
-      icon: '💼',
+      icon: <FaLinkedin />,
       color: 'from-blue-500 to-cyan-500',
     },
     {
       name: 'GitHub',
       href: 'https://github.com/Multiverse88',
-      icon: '🐙',
+      icon: <FaGithub />,
       color: 'from-gray-700 to-slate-800',
     },
     {
       name: 'Email',
       href: 'mailto:ainanbahrul@gmail.com',
-      icon: '✉️',
+      icon: <HiMail />,
       color: 'from-purple-500 to-pink-500',
     },
     {
       name: 'Twitter',
       href: 'https://twitter.com/ainanbahrul',
-      icon: '🐦',
+      icon: <FaTwitter />,
       color: 'from-sky-400 to-blue-500',
     }
   ];
 
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Certificates', href: '#certificates' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: t('nav.home'), href: '#home' },
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.experience'), href: '#experience' },
+    { name: t('nav.certificates'), href: '#certificates' },
+    { name: t('nav.projects'), href: '#projects' },
+    { name: t('nav.contact'), href: '#contact' },
   ];
 
   const containerVariants = {
@@ -85,7 +89,7 @@ const FooterWeb3 = () => {
 
   return (
     <footer className="bg-slate-950 text-white relative overflow-hidden">
-      {/* Web3 Background Pattern */}
+      {/* Developer Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
           className="w-full h-full"
@@ -182,14 +186,12 @@ const FooterWeb3 = () => {
                     >
                       Ainan.dev
                     </motion.h3>
-                    <p className="text-cyan-400/70 text-sm font-medium">Web3 Portfolio</p>
+                    <p className="text-cyan-400/70 text-sm font-medium">Developer Portfolio</p>
                   </div>
                 </motion.div>
 
                 <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
-                  Building the future of the web with cutting-edge technologies.
-                  Passionate about creating scalable solutions that bridge traditional
-                  and decentralized worlds.
+                  {t('footer.description')}
                 </p>
 
                 {/* Status */}
@@ -209,7 +211,7 @@ const FooterWeb3 = () => {
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   />
-                  <span className="text-green-400 text-sm font-medium">Available for projects</span>
+                  <span className="text-green-400 text-sm font-medium">{t('footer.status')}</span>
                 </motion.div>
               </div>
             </motion.div>
@@ -218,7 +220,7 @@ const FooterWeb3 = () => {
             <motion.div variants={itemVariants}>
               <h4 className="text-lg font-bold text-white mb-6 flex items-center">
                 <span className="mr-2">🔗</span>
-                Quick Links
+                {t('footer.quickLinks')}
               </h4>
               <nav className="space-y-3">
                 {quickLinks.map((link) => (
@@ -248,7 +250,7 @@ const FooterWeb3 = () => {
             <motion.div variants={itemVariants}>
               <h4 className="text-lg font-bold text-white mb-6 flex items-center">
                 <span className="mr-2">🌐</span>
-                Connect
+                {t('footer.connect')}
               </h4>
               <div className="space-y-3">
                 {socialLinks.map((social, index) => (
@@ -301,7 +303,7 @@ const FooterWeb3 = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <p className="text-sm">
-                  © {currentYear} Ainan Bahrul Ihsan. All rights reserved.
+                  © {currentYear} Ainan Bahrul Ihsan. {t('footer.copyright')}
                 </p>
                 <motion.div
                   className="w-2 h-2 bg-cyan-400 rounded-full"
@@ -318,7 +320,7 @@ const FooterWeb3 = () => {
                 className="flex items-center space-x-4"
                 whileHover={{ scale: 1.05 }}
               >
-                <p className="text-gray-400 text-sm">Built with</p>
+                <p className="text-gray-400 text-sm">{t('footer.builtWith')}</p>
                 <div className="flex items-center space-x-2">
                   {[
                     { name: 'Next.js', color: 'text-white' },

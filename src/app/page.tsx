@@ -1,13 +1,22 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
+import { useDeviceCapabilities } from "@/hooks/useDeviceCapabilities";
 
-// Dynamic imports to prevent SSR issues
+// Mobile-optimized components
+const HeroMobileOptimized = dynamic(() => import("@/components/HeroMobileOptimized"), {
+  ssr: false,
+  loading: () => <div className="min-h-screen bg-slate-900 animate-pulse" />,
+});
+
+// Modern portfolio components for desktop
 const HeroWeb3 = dynamic(() => import("@/components/HeroWeb3"), {
   ssr: false,
   loading: () => <div className="min-h-screen bg-slate-900 animate-pulse" />,
 });
+
+// Other components with performance considerations
 const AboutWeb3 = dynamic(() => import("@/components/AboutWeb3"), {
   ssr: false,
 });
@@ -78,6 +87,25 @@ const jsonLd = {
 };
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  const capabilities = useDeviceCapabilities();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show loading screen until mounted and capabilities detected
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-cyan-400 text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  // Choose Hero component based on device capabilities
+  const HeroComponent = capabilities.isLowEndDevice || capabilities.isMobile ? HeroMobileOptimized : HeroWeb3;
+
   return (
     <>
       {/* JSON-LD Structured Data */}
@@ -94,36 +122,43 @@ export default function Home() {
         >
           <HeaderWeb3 />
         </Suspense>
+        
         <Suspense
           fallback={<div className="min-h-screen bg-slate-900 animate-pulse" />}
         >
-          <HeroWeb3 />
+          <HeroComponent />
         </Suspense>
+        
         <Suspense
           fallback={<div className="h-96 bg-slate-800 animate-pulse" />}
         >
           <AboutWeb3 />
         </Suspense>
+        
         <Suspense
           fallback={<div className="h-96 bg-slate-900 animate-pulse" />}
         >
           <ExperienceWeb3 />
         </Suspense>
+        
         <Suspense
           fallback={<div className="h-96 bg-slate-800 animate-pulse" />}
         >
           <CertificatesWeb3 />
         </Suspense>
+        
         <Suspense
           fallback={<div className="h-96 bg-slate-900 animate-pulse" />}
         >
           <ProjectsNew />
         </Suspense>
+        
         <Suspense
           fallback={<div className="h-96 bg-slate-800 animate-pulse" />}
         >
           <ContactWeb3 />
         </Suspense>
+        
         <FooterWeb3 />
       </div>
     </>

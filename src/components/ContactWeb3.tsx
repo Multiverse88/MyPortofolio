@@ -2,8 +2,17 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { 
+  HiMail, 
+  HiOfficeBuilding, 
+  HiCode,
+  HiChat 
+} from 'react-icons/hi';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const ContactWeb3 = () => {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
@@ -43,28 +52,28 @@ const ContactWeb3 = () => {
   const socialLinks = [
     {
       name: 'Email',
-      icon: '✉️',
+      icon: <HiMail />,
       value: 'ainanbahrul@gmail.com',
       href: 'mailto:ainanbahrul@gmail.com',
       color: 'from-red-500 to-pink-500'
     },
     {
       name: 'LinkedIn',
-      icon: '💼',
+      icon: <FaLinkedin />,
       value: '/ainan-bahrul-ihsan',
       href: 'https://www.linkedin.com/in/ainan-bahrul-ihsan/',
       color: 'from-blue-500 to-cyan-500'
     },
     {
       name: 'GitHub',
-      icon: '🐙',
+      icon: <FaGithub />,
       value: '@Multiverse88',
       href: 'https://github.com/Multiverse88',
       color: 'from-gray-700 to-gray-900'
     },
     {
       name: 'Twitter',
-      icon: '🐦',
+      icon: <FaTwitter />,
       value: '@ainanbahrul',
       href: 'https://twitter.com/ainanbahrul',
       color: 'from-blue-400 to-blue-600'
@@ -117,7 +126,7 @@ const ContactWeb3 = () => {
 
   return (
     <section id="contact" className="py-20 bg-slate-900 relative overflow-hidden">
-      {/* Web3 Background Pattern */}
+      {/* Developer Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="w-full h-full"
@@ -173,7 +182,7 @@ const ContactWeb3 = () => {
               transition={{ duration: 3, repeat: Infinity }}
               style={{ backgroundSize: '200% 200%' }}
             >
-              Let's Connect
+              {t('contact.title')}
             </motion.h2>
             <motion.div
               className="w-20 h-1 bg-gradient-to-r from-pink-400 to-cyan-400 mx-auto rounded-full"
@@ -185,7 +194,7 @@ const ContactWeb3 = () => {
               className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto mt-6"
               variants={itemVariants}
             >
-              Ready to build something amazing together? Drop me a message and let's turn your ideas into reality.
+              {t('contact.description')}
             </motion.p>
           </motion.div>
 
@@ -194,11 +203,11 @@ const ContactWeb3 = () => {
             {/* Contact Form */}
             <motion.div
               variants={itemVariants}
-              className="web3-glass rounded-2xl p-8 border border-pink-500/20"
+              className="portfolio-glass rounded-2xl p-8 border border-pink-500/20"
             >
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-white">Send Message</h3>
+                  <h3 className="text-2xl font-bold text-white">{t('contact.form.title')}</h3>
                   <motion.div
                     className="flex items-center space-x-2 px-3 py-1 bg-green-500/20 rounded-full border border-green-400/30"
                     animate={{
@@ -219,7 +228,7 @@ const ContactWeb3 = () => {
                   </motion.div>
                 </div>
                 <p className="text-gray-400 text-sm">
-                  Fill out the form below and I'll get back to you as soon as possible.
+                  {t('contact.form.description')}
                 </p>
               </div>
 
@@ -230,7 +239,7 @@ const ContactWeb3 = () => {
                   transition={{ delay: 0.2 }}
                 >
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Name
+                    {t('contact.form.name')}
                   </label>
                   <input
                     type="text"
@@ -240,7 +249,7 @@ const ContactWeb3 = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-slate-800/80 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20 focus:outline-none transition-all duration-300 backdrop-blur-sm"
-                    placeholder="Your full name"
+                    placeholder={t('contact.form.placeholders.name')}
                   />
                 </motion.div>
 
@@ -250,7 +259,7 @@ const ContactWeb3 = () => {
                   transition={{ delay: 0.3 }}
                 >
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
+                    {t('contact.form.email')}
                   </label>
                   <input
                     type="email"
@@ -260,7 +269,7 @@ const ContactWeb3 = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-slate-800/80 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20 focus:outline-none transition-all duration-300 backdrop-blur-sm"
-                    placeholder="your.email@example.com"
+                    placeholder={t('contact.form.placeholders.email')}
                   />
                 </motion.div>
 
@@ -270,7 +279,7 @@ const ContactWeb3 = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
+                    {t('contact.form.message')}
                   </label>
                   <textarea
                     id="message"
@@ -280,7 +289,7 @@ const ContactWeb3 = () => {
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-slate-800/80 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20 focus:outline-none transition-all duration-300 backdrop-blur-sm resize-none"
-                    placeholder="Tell me about your project or just say hello..."
+                    placeholder={t('contact.form.placeholders.message')}
                   />
                 </motion.div>
 
@@ -304,11 +313,11 @@ const ContactWeb3 = () => {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
-                      Sending Message...
+                      {t('contact.form.sending')}
                     </span>
                   ) : (
                     <span className="flex items-center justify-center">
-                      Send Message
+                      {t('contact.form.send')}
                       <motion.span
                         className="ml-2"
                         animate={{ x: [0, 5, 0] }}
@@ -329,7 +338,7 @@ const ContactWeb3 = () => {
             >
               {/* Contact Details */}
               <motion.div
-                className="web3-glass rounded-2xl p-8 border border-cyan-500/20"
+                className="portfolio-glass rounded-2xl p-8 border border-cyan-500/20"
                 whileHover={{
                   borderColor: "rgba(6, 182, 212, 0.4)"
                 }}
@@ -385,7 +394,7 @@ const ContactWeb3 = () => {
 
               {/* Social Links */}
               <motion.div
-                className="web3-glass rounded-2xl p-8 border border-purple-500/20"
+                className="portfolio-glass rounded-2xl p-8 border border-purple-500/20"
                 variants={itemVariants}
               >
                 <h3 className="text-2xl font-bold text-white mb-6">Connect with Me</h3>

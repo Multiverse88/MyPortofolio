@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ClientWrapper from "@/components/ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
 });
 
 export const metadata: Metadata = {
@@ -101,6 +104,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Preconnect to improve loading performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
@@ -121,12 +128,29 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#113F67" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        
+        {/* Mobile optimization meta tags */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="/images/ainan-profile.jpg"
+          as="image"
+          type="image/jpeg"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ErrorBoundary>
+          <ClientWrapper>
+            {children}
+          </ClientWrapper>
+        </ErrorBoundary>
       </body>
     </html>
   );

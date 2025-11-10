@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { type Experience as ExperienceType } from '@/types';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 const ExperienceWeb3 = () => {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -21,42 +23,27 @@ const ExperienceWeb3 = () => {
   const experiences: ExperienceType[] = [
     {
       id: 1,
-      company: 'Laboratorium Teknik Informatika UNPAS',
-      position: 'Asisten Lab',
-      duration: 'Sep 2023 - Present',
-      description: [
-        'Mengajar Matakuliah Praktikum untuk mahasiswa Teknik Informatika',
-        'Membimbing praktikum pemrograman dan teknologi web',
-        'Membantu mahasiswa dalam memahami konsep praktis teknologi informasi',
-        'Mengelola laboratorium dan peralatan praktikum'
-      ],
-      technologies: ['Programming', 'Web Development', 'Database', 'Computer Networks']
+      company: t('experience.positions.labAssistant.company'),
+      position: t('experience.positions.labAssistant.title'),
+      duration: t('experience.positions.labAssistant.duration'),
+      description: t('experience.positions.labAssistant.description'),
+      technologies: t('experience.positions.labAssistant.technologies')
     },
     {
       id: 2,
-      company: 'Bangkit Academy',
-      position: 'Cloud Computing Cohort',
-      duration: 'Feb 2024 - Jul 2024',
-      description: [
-        'Mempelajari tentang Cloud Computing dengan instruktur dari Google, Tokopedia, Gojek, & Traveloka',
-        'Membangun API untuk keperluan development aplikasi menggunakan Node.js',
-        'Membangun sistem backend dan database menggunakan Sequelize dari Node.js',
-        'Mengelola ekosistem Cloud Computing untuk aplikasi berbasis mobile Android menggunakan Google Cloud Platform'
-      ],
-      technologies: ['Google Cloud Platform', 'Node.js', 'Sequelize', 'Cloud Computing', 'API Development', 'Android Development']
+      company: t('experience.positions.bangkit.company'),
+      position: t('experience.positions.bangkit.title'),
+      duration: t('experience.positions.bangkit.duration'),
+      description: t('experience.positions.bangkit.description'),
+      technologies: t('experience.positions.bangkit.technologies')
     },
     {
       id: 3,
-      company: 'Laboratorium Teknik Informatika UNPAS',
-      position: 'Asisten Dosen',
-      duration: 'Sep 2023 - Feb 2025',
-      description: [
-        'Mendampingi mahasiswa dalam pembelajaran matakuliah Internet dan Teknologi Web',
-        'Membantu dosen dalam penyampaian materi praktikum',
-        'Memberikan bimbingan dan evaluasi kepada mahasiswa',
-        'Mengelola dan mempersiapkan materi pembelajaran praktikum'
-      ],
-      technologies: ['Internet Technology', 'Web Development', 'HTML', 'CSS', 'JavaScript', 'Teaching']
+      company: t('experience.positions.teaching.company'),
+      position: t('experience.positions.teaching.title'),
+      duration: t('experience.positions.teaching.duration'),
+      description: t('experience.positions.teaching.description'),
+      technologies: t('experience.positions.teaching.technologies')
     }
   ];
 
@@ -103,7 +90,7 @@ const ExperienceWeb3 = () => {
 
   return (
     <section id="experience" className="py-20 bg-slate-900 relative overflow-hidden">
-      {/* Web3 Background Elements */}
+      {/* Developer Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div
           className="w-full h-full"
@@ -159,7 +146,7 @@ const ExperienceWeb3 = () => {
               transition={{ duration: 3, repeat: Infinity }}
               style={{ backgroundSize: '200% 200%' }}
             >
-              Professional Experience
+              {t('experience.title')}
             </motion.h2>
             <motion.div
               className="w-20 h-1 bg-gradient-to-r from-purple-400 to-cyan-400 mx-auto rounded-full"
@@ -215,7 +202,7 @@ const ExperienceWeb3 = () => {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`web3-glass rounded-2xl p-6 border border-cyan-500/20 w-full md:w-5/12 ml-12 md:ml-0 ${
+                    className={`portfolio-glass rounded-2xl p-6 border border-cyan-500/20 w-full md:w-5/12 ml-12 md:ml-0 ${
                       index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'
                     }`}
                     whileHover={{

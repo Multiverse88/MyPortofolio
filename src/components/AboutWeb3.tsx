@@ -4,8 +4,16 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Skill } from '@/types';
 import Image from 'next/image';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { 
+  HiLightningBolt, 
+  HiCode, 
+  HiSparkles, 
+  HiGlobe 
+} from 'react-icons/hi';
 
 const AboutWeb3 = () => {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -20,14 +28,14 @@ const AboutWeb3 = () => {
   }, []);
 
   const skills: Skill[] = [
-    { name: 'Node.js', level: 90, category: 'backend' },
-    { name: 'Google Cloud Platform', level: 85, category: 'tools' },
-    { name: 'React', level: 88, category: 'frontend' },
-    { name: 'Next.js', level: 85, category: 'frontend' },
-    { name: 'Sequelize', level: 82, category: 'database' },
-    { name: 'JavaScript', level: 90, category: 'frontend' },
-    { name: 'Tailwind CSS', level: 88, category: 'frontend' },
-    { name: 'API Development', level: 85, category: 'backend' },
+    { name: 'Node.js', level: 'Expert', category: 'backend' },
+    { name: 'Google Cloud Platform', level: 'Advanced', category: 'tools' },
+    { name: 'React', level: 'Expert', category: 'frontend' },
+    { name: 'Next.js', level: 'Advanced', category: 'frontend' },
+    { name: 'Sequelize', level: 'Advanced', category: 'database' },
+    { name: 'JavaScript', level: 'Expert', category: 'frontend' },
+    { name: 'Tailwind CSS', level: 'Expert', category: 'frontend' },
+    { name: 'API Development', level: 'Advanced', category: 'backend' },
   ];
 
   const containerVariants = {
@@ -66,6 +74,26 @@ const AboutWeb3 = () => {
     }
   };
 
+  const getSkillLevelColor = (level: string) => {
+    switch (level) {
+      case 'Expert': return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30';
+      case 'Advanced': return 'text-blue-400 bg-blue-400/10 border-blue-400/30';
+      case 'Intermediate': return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30';
+      case 'Beginner': return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
+      default: return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
+    }
+  };
+
+  const getSkillStars = (level: string) => {
+    switch (level) {
+      case 'Expert': return 5;
+      case 'Advanced': return 4;
+      case 'Intermediate': return 3;
+      case 'Beginner': return 2;
+      default: return 1;
+    }
+  };
+
   if (!mounted) {
     return (
       <section className="py-20 bg-slate-800">
@@ -86,7 +114,7 @@ const AboutWeb3 = () => {
 
   return (
     <section id="about" className="py-20 bg-slate-800 relative overflow-hidden">
-      {/* Web3 Background Pattern */}
+      {/* Developer Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="w-full h-full"
@@ -141,7 +169,7 @@ const AboutWeb3 = () => {
               transition={{ duration: 3, repeat: Infinity }}
               style={{ backgroundSize: '200% 200%' }}
             >
-              About Me
+              {t('about.title')}
             </motion.h2>
             <motion.div
               className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto rounded-full"
@@ -162,30 +190,21 @@ const AboutWeb3 = () => {
                   className="text-gray-300 text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  I'm a passionate Full Stack Developer with over 3 years of experience
-                  creating innovative web applications and cloud solutions. My journey in
-                  technology started with curiosity and has evolved into expertise across
-                  multiple platforms and frameworks.
+                  {t('about.description.paragraph1')}
                 </motion.p>
 
                 <motion.p
                   className="text-gray-300 text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  Currently pursuing my studies in Informatics Engineering at Universitas
-                  Pasundan, I combine academic knowledge with practical experience to deliver
-                  cutting-edge solutions. My expertise spans from frontend development with
-                  React and Next.js to backend systems with Node.js and cloud deployment
-                  on Google Cloud Platform.
+                  {t('about.description.paragraph2')}
                 </motion.p>
 
                 <motion.p
                   className="text-gray-300 text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  I'm passionate about learning new technologies and constantly pushing
-                  the boundaries of what's possible in web development. My goal is to
-                  create meaningful digital experiences that make a positive impact.
+                  {t('about.description.paragraph3')}
                 </motion.p>
               </div>
 
@@ -195,14 +214,14 @@ const AboutWeb3 = () => {
                 className="grid grid-cols-2 gap-4 pt-6"
               >
                 {[
-                  { number: "3+", label: "Years Experience", icon: "⚡" },
-                  { number: "50+", label: "Projects Done", icon: "🚀" },
-                  { number: "100%", label: "Client Satisfaction", icon: "💎" },
-                  { number: "24/7", label: "Availability", icon: "🌐" }
+                  { number: "3+", label: t('about.stats.experience'), icon: <HiLightningBolt /> },
+                  { number: "50+", label: t('about.stats.projects'), icon: <HiCode /> },
+                  { number: "⭐⭐⭐⭐⭐", label: t('about.stats.satisfaction'), icon: <HiSparkles /> },
+                  { number: "24/7", label: t('about.stats.availability'), icon: <HiGlobe /> }
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
-                    className="web3-glass rounded-xl p-4 text-center border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300"
+                    className="portfolio-glass rounded-xl p-4 text-center border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300"
                     whileHover={{
                       scale: 1.05,
                       boxShadow: "0 10px 30px rgba(6, 182, 212, 0.2)"
@@ -224,7 +243,7 @@ const AboutWeb3 = () => {
 
               {/* Profile Card */}
               <motion.div
-                className="web3-glass rounded-2xl p-6 border border-cyan-500/20"
+                className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20"
                 whileHover={{
                   scale: 1.02,
                   borderColor: "rgba(6, 182, 212, 0.4)"
@@ -254,63 +273,60 @@ const AboutWeb3 = () => {
                     </motion.div>
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-white mb-2">Ainan Bahrul Ihsan</h3>
-                  <p className="text-cyan-400 font-medium">Full Stack Developer</p>
-                  <p className="text-gray-400 text-sm mt-2">Universitas Pasundan | Informatics Engineering</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{t('about.profile.name')}</h3>
+                  <p className="text-cyan-400 font-medium">{t('about.profile.role')}</p>
+                  <p className="text-gray-400 text-sm mt-2">{t('about.profile.university')}</p>
                 </div>
               </motion.div>
 
               {/* Skills Section */}
               <motion.div
                 variants={itemVariants}
-                className="web3-glass rounded-2xl p-6 border border-cyan-500/20"
+                className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20"
               >
                 <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                   <span className="mr-2">🛠️</span>
-                  Technical Skills
+                  {t('about.skills.title')}
                 </h3>
 
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {skills.map((skill, index) => (
                     <motion.div
                       key={skill.name}
-                      className="space-y-2"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      className={`p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-cyan-400/40 transition-all duration-300 portfolio-glass`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
+                      whileHover={{ scale: 1.02 }}
                     >
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-300 font-medium">{skill.name}</span>
-                        <span className="text-cyan-400 text-sm font-bold">{skill.level}%</span>
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex-1">
+                          <h4 className="text-gray-200 font-semibold text-lg">{skill.name}</h4>
+                          <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium border mt-2 ${getSkillLevelColor(skill.level)}`}>
+                            {skill.level}
+                          </span>
+                        </div>
+                        <div className="ml-3">
+                          <div className="flex space-x-1">
+                            {Array.from({ length: 5 }).map((_, starIndex) => (
+                              <motion.div
+                                key={starIndex}
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                transition={{ delay: index * 0.1 + starIndex * 0.05 }}
+                                viewport={{ once: true }}
+                              >
+                                <span className={`text-lg ${starIndex < getSkillStars(skill.level) ? 'text-yellow-400' : 'text-gray-600'}`}>
+                                  ★
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-
-                      <div className="relative h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <motion.div
-                          className={`absolute top-0 left-0 h-full bg-gradient-to-r ${getSkillColor(skill.category)} rounded-full`}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{
-                            delay: index * 0.1 + 0.2,
-                            duration: 1,
-                            ease: "easeOut"
-                          }}
-                          viewport={{ once: true }}
-                        />
-
-                        {/* Glow Effect */}
-                        <motion.div
-                          className={`absolute top-0 left-0 h-full bg-gradient-to-r ${getSkillColor(skill.category)} rounded-full opacity-50 blur-sm`}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{
-                            delay: index * 0.1 + 0.2,
-                            duration: 1,
-                            ease: "easeOut"
-                          }}
-                          viewport={{ once: true }}
-                        />
-                      </div>
+                      
+                      <div className={`h-1 w-full rounded-full bg-gradient-to-r ${getSkillColor(skill.category)} opacity-60`}></div>
                     </motion.div>
                   ))}
                 </div>

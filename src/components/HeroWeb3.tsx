@@ -4,11 +4,20 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import TypeWriter from './TypeWriter';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { 
+  SiReact, 
+  SiNodedotjs, 
+  SiTypescript, 
+  SiMongodb 
+} from 'react-icons/si';
 
 const HeroWeb3 = () => {
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -34,13 +43,8 @@ const HeroWeb3 = () => {
     };
   }, []);
 
-  const skills = ["Web3", "DeFi", "Smart Contracts", "React", "Next.js", "TypeScript"];
-  const roles = [
-    "Full Stack Developer",
-    "Blockchain Developer",
-    "DeFi Architect",
-    "Web3 Pioneer",
-  ];
+  const skills = t('hero.skills') as string[];
+  const roles = t('hero.roles') as string[];
 
   if (!mounted) {
     return (
@@ -66,7 +70,14 @@ const HeroWeb3 = () => {
       id="home"
       className="min-h-screen relative overflow-hidden bg-slate-900"
     >
-      {/* Web3 Animated Background */}
+      {/* Language Switcher - Desktop */}
+      {!isMobile && (
+        <div className="absolute top-6 right-6 z-50">
+          <LanguageSwitcher variant="header" />
+        </div>
+      )}
+      
+      {/* Developer Animated Background */}
       <div className="absolute inset-0">
         {/* Blockchain Grid Pattern */}
         <div className="absolute inset-0 opacity-20">
@@ -135,7 +146,7 @@ const HeroWeb3 = () => {
         {/* Connecting Lines */}
         <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="web3Gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="devGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#06b6d4" stopOpacity="0" />
               <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
@@ -144,7 +155,7 @@ const HeroWeb3 = () => {
 
           <motion.path
             d="M100,200 Q300,100 500,150 T900,120"
-            stroke="url(#web3Gradient1)"
+            stroke="url(#devGradient1)"
             strokeWidth="2"
             fill="none"
             initial={{ pathLength: 0 }}
@@ -164,7 +175,7 @@ const HeroWeb3 = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            {/* Web3 Status Badge */}
+            {/* Developer Status Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -196,7 +207,7 @@ const HeroWeb3 = () => {
                   transition={{ duration: 2, repeat: Infinity }}
                 />
                 <span className="text-cyan-100 text-sm font-medium">
-                  🔗 Connected to Web3
+                  {t('hero.status.connected')}
                 </span>
               </motion.div>
             </motion.div>
@@ -219,25 +230,27 @@ const HeroWeb3 = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  Hi, I'm
+                  {t('hero.greeting')}
                 </motion.span>
                 <motion.span
                   className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
                   initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7, duration: 0.8 }}
-                  style={{
-                    backgroundSize: '200% 200%',
-                  }}
-                  animate={{
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
                     backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
                   }}
                   transition={{
+                    opacity: { delay: 0.7, duration: 0.8 },
+                    x: { delay: 0.7, duration: 0.8 },
                     backgroundPosition: {
                       duration: 3,
                       repeat: Infinity,
                       ease: "linear"
                     }
+                  }}
+                  style={{
+                    backgroundSize: '200% 200%',
                   }}
                 >
                   Ainan Bahrul
@@ -253,7 +266,7 @@ const HeroWeb3 = () => {
               </motion.h1>
             </motion.div>
 
-            {/* TypeWriter with Web3 Roles */}
+            {/* TypeWriter with Developer Roles */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -283,12 +296,11 @@ const HeroWeb3 = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.3 }}
               >
-                Building the decentralized future with cutting-edge Web3 technologies.
-                Creating scalable blockchain solutions that bridge traditional and decentralized worlds.
+                {t('hero.description')}
               </motion.p>
             </motion.div>
 
-            {/* Web3 Skills with Blockchain Icons */}
+            {/* Tech Skills with Modern Icons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -319,7 +331,7 @@ const HeroWeb3 = () => {
               ))}
             </motion.div>
 
-            {/* Web3 Stats */}
+            {/* Developer Stats */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -327,9 +339,9 @@ const HeroWeb3 = () => {
               className="grid grid-cols-3 gap-6 max-w-lg"
             >
               {[
-                { number: "3+", label: "Years Web3", color: "from-cyan-400 to-blue-400" },
-                { number: "50+", label: "DApps Built", color: "from-purple-400 to-pink-400" },
-                { number: "∞", label: "Possibilities", color: "from-green-400 to-cyan-400" },
+                { number: "3+", label: t('hero.stats.years'), color: "from-cyan-400 to-blue-400" },
+                { number: "50+", label: t('hero.stats.projects'), color: "from-purple-400 to-pink-400" },
+                { number: "∞", label: t('hero.stats.possibilities'), color: "from-green-400 to-cyan-400" },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -362,7 +374,7 @@ const HeroWeb3 = () => {
               ))}
             </motion.div>
 
-            {/* Web3 CTA Buttons */}
+            {/* Project CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -394,7 +406,7 @@ const HeroWeb3 = () => {
                   transition={{ duration: 0.3 }}
                 />
                 <span className="relative z-10 flex items-center justify-center">
-                  🚀 Launch Project
+                  🚀 {t('hero.buttons.launchProject')}
                   <motion.span
                     className="ml-2 text-lg"
                     animate={{ x: [0, 5, 0] }}
@@ -421,7 +433,7 @@ const HeroWeb3 = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="flex items-center justify-center">
-                  📱 View DApps
+                  📱 {t('hero.buttons.viewDapps')}
                   <motion.span
                     className="ml-2 opacity-0 group-hover:opacity-100"
                     initial={{ x: -10 }}
@@ -435,7 +447,7 @@ const HeroWeb3 = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Web3 Avatar Card */}
+          {/* Right Content - Developer Avatar Card */}
           <motion.div
             className="flex justify-center lg:justify-end"
             initial={{ opacity: 0, x: 100 }}
@@ -499,7 +511,7 @@ const HeroWeb3 = () => {
                         <div className="relative w-full h-full rounded-xl overflow-hidden">
                           <Image
                             src="/images/ainan-profile.jpg"
-                            alt="Ainan Bahrul Ihsan - Web3 Developer"
+                            alt="Ainan Bahrul Ihsan - Full Stack Developer"
                             fill
                             className="object-cover object-center"
                             onError={(e) => {
@@ -561,7 +573,7 @@ const HeroWeb3 = () => {
                       }}
                       style={{ backgroundSize: "200% 200%" }}
                     >
-                      Web3 Architect
+                      Full Stack Developer
                     </motion.h3>
 
                     <motion.p
@@ -576,10 +588,10 @@ const HeroWeb3 = () => {
                     {/* Blockchain Tech Stack */}
                     <div className="flex justify-center space-x-2 pt-2">
                       {[
-                        { icon: "₿", name: "Bitcoin", color: "from-orange-400 to-yellow-400" },
-                        { icon: "Ξ", name: "Ethereum", color: "from-blue-400 to-purple-400" },
-                        { icon: "◎", name: "Solana", color: "from-green-400 to-cyan-400" },
-                        { icon: "🔗", name: "Chainlink", color: "from-blue-500 to-indigo-500" },
+                        { icon: <SiReact />, name: "React", color: "from-blue-400 to-cyan-400" },
+                        { icon: <SiNodedotjs />, name: "Node.js", color: "from-green-400 to-emerald-400" },
+                        { icon: <SiTypescript />, name: "TypeScript", color: "from-blue-500 to-indigo-500" },
+                        { icon: <SiMongodb />, name: "MongoDB", color: "from-green-500 to-teal-500" },
                       ].map((tech, index) => (
                         <motion.div
                           key={tech.name}
@@ -647,7 +659,7 @@ const HeroWeb3 = () => {
                 {/* Hash Footer */}
                 <div className="absolute bottom-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60" />
                 <div className="absolute bottom-1 left-4 text-xs text-cyan-400/50 font-mono">
-                  Verified ✓
+                  {t('hero.status.verified')}
                 </div>
               </motion.div>
 
@@ -665,7 +677,7 @@ const HeroWeb3 = () => {
         </div>
       </div>
 
-      {/* Web3 Scroll Indicator */}
+      {/* Developer Scroll Indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:flex"
         initial={{ opacity: 0, y: 20 }}
@@ -683,7 +695,7 @@ const HeroWeb3 = () => {
           }
         >
           <span className="text-cyan-300 text-sm font-medium group-hover:text-white transition-colors">
-            ⬇ Explore the blockchain
+            {t('hero.scroll')}
           </span>
           <motion.div
             className="w-6 h-10 border-2 border-cyan-400/60 rounded-full flex justify-center group-hover:border-cyan-400 transition-colors"

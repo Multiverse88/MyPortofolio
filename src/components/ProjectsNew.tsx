@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
+import { useTranslation } from '@/contexts/LanguageContext';
 
 const projects = [
   {
@@ -68,6 +69,7 @@ const projects = [
 ];
 
 const ProjectsNew = () => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [selectedPreview, setSelectedPreview] = useState<number | null>(null);
   const [previewLoading, setPreviewLoading] = useState<{ [key: number]: boolean }>({});
@@ -96,23 +98,23 @@ const ProjectsNew = () => {
               className="inline-block px-4 py-2 bg-gradient-to-r from-[#9ECAD6]/20 to-[#58A0C8]/20 rounded-full text-[#113F67] text-sm font-medium mb-4"
               whileHover={{ scale: 1.05 }}
             >
-              My Work
+              {t('projects.badge')}
             </motion.span>
             <h2 className={`font-black text-gray-900 mb-4 ${
               isMobile ? 'text-4xl' : 'text-6xl'
             }`}>
-              FEATURED<br />
+              {t('projects.title.featured')}<br />
               <span className="bg-gradient-to-r from-[#113F67] via-[#34699A] to-[#58A0C8] bg-clip-text text-transparent">
-                PROJECTS
+                {t('projects.title.projects')}
               </span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Here are some projects that showcase my skills and experience in modern web development.
+              {t('projects.description')}
             </p>
             {/* Mobile indicator for debugging */}
             {isMobile && (
               <div className="mt-4 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg inline-block text-sm">
-                📱 Mobile View Active - {projects.length} projects to show
+                📱 {t('projects.mobileActive')} - {projects.length} {t('projects.projectsToShow')}
               </div>
             )}
           </motion.div>
@@ -402,7 +404,7 @@ const ProjectsNew = () => {
                                 className="w-14 h-14 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300"
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.95 }}
-                                title="View Live Preview"
+                                title={t('projects.tooltips.livePreview')}
                               >
                                 <svg className="w-6 h-6 text-[#34699A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -418,7 +420,7 @@ const ProjectsNew = () => {
                                 className="w-14 h-14 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300"
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.95 }}
-                                title="Open in New Tab"
+                                title={t('projects.tooltips.openNewTab')}
                               >
                                 <svg className="w-6 h-6 text-[#34699A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -433,7 +435,7 @@ const ProjectsNew = () => {
                                 className="w-14 h-14 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300"
                                 whileHover={{ scale: 1.1, rotate: -5 }}
                                 whileTap={{ scale: 0.95 }}
-                                title="View Source Code"
+                                title={t('projects.tooltips.sourceCode')}
                               >
                                 <svg className="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
                                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -450,7 +452,7 @@ const ProjectsNew = () => {
                               }}
                               transition={{ duration: 2, repeat: Infinity }}
                             >
-                              ⭐ Featured
+                              ⭐ {t('projects.featured')}
                             </motion.div>
                           )}
                         </div>
@@ -496,7 +498,7 @@ const ProjectsNew = () => {
 
                     {/* Technologies */}
                     <div>
-                      <h4 className="text-gray-800 font-semibold mb-3">Tech Stack</h4>
+                      <h4 className="text-gray-800 font-semibold mb-3">{t('projects.techStack')}</h4>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, techIndex) => (
                           <motion.span
@@ -531,7 +533,7 @@ const ProjectsNew = () => {
                           <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                           </svg>
-                          Login Info
+                          {t('projects.buttons.loginInfo')}
                         </motion.button>
                       )}
 
@@ -548,7 +550,7 @@ const ProjectsNew = () => {
                           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          Try Demo
+                          {t('projects.buttons.tryDemo')}
                         </motion.a>
                       )}
 
@@ -563,7 +565,7 @@ const ProjectsNew = () => {
                           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                           </svg>
-                          Live Preview
+                          {t('projects.buttons.livePreview')}
                         </motion.button>
                       )}
                       
@@ -578,7 +580,7 @@ const ProjectsNew = () => {
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        View Live
+                        {t('projects.buttons.viewLive')}
                       </motion.a>
                       
                       <motion.a
@@ -592,7 +594,7 @@ const ProjectsNew = () => {
                         <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
-                        Source Code
+                        {t('projects.buttons.sourceCode')}
                       </motion.a>
                     </div>
                   </motion.div>

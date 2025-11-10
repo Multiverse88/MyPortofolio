@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface PDFViewerWeb3Props {
+interface PDFModalProps {
   pdfUrl: string;
   title: string;
   onClose: () => void;
 }
 
-const PDFViewerWeb3: React.FC<PDFViewerWeb3Props> = ({
+const PDFModal: React.FC<PDFModalProps> = ({
   pdfUrl,
   title,
   onClose,
@@ -465,4 +465,4 @@ const PDFViewerWeb3: React.FC<PDFViewerWeb3Props> = ({
   );
 };
 
-export default PDFViewerWeb3;
+export default PDFModal;

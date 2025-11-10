@@ -2,19 +2,30 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
+import { 
+  HiHome, 
+  HiUser, 
+  HiLightningBolt, 
+  HiAcademicCap, 
+  HiCode, 
+  HiMail 
+} from 'react-icons/hi';
 
 const HeaderWeb3 = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { name: 'Home', href: '#home', icon: '🏠' },
-    { name: 'About', href: '#about', icon: '👨‍💻' },
-    { name: 'Experience', href: '#experience', icon: '⚡' },
-    { name: 'Certificates', href: '#certificates', icon: '🎓' },
-    { name: 'Projects', href: '#projects', icon: '🚀' },
-    { name: 'Contact', href: '#contact', icon: '📧' },
+    { name: t('nav.home'), href: '#home', icon: <HiHome /> },
+    { name: t('nav.about'), href: '#about', icon: <HiUser /> },
+    { name: t('nav.experience'), href: '#experience', icon: <HiLightningBolt /> },
+    { name: t('nav.certificates'), href: '#certificates', icon: <HiAcademicCap /> },
+    { name: t('nav.projects'), href: '#projects', icon: <HiCode /> },
+    { name: t('nav.contact'), href: '#contact', icon: <HiMail /> },
   ];
 
   useEffect(() => {
@@ -55,7 +66,7 @@ const HeaderWeb3 = () => {
 
   return (
     <>
-      {/* Web3 Header */}
+      {/* Developer Header */}
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           isScrolled
@@ -109,7 +120,7 @@ const HeaderWeb3 = () => {
                   Ainan.dev
                 </motion.h1>
                 <div className="text-xs text-cyan-400/70 font-medium">
-                  Web3 Portfolio
+                  Developer Portfolio
                 </div>
               </div>
             </motion.div>
@@ -149,9 +160,14 @@ const HeaderWeb3 = () => {
                   </span>
                 </motion.button>
               ))}
+              
+              {/* Language Switcher in Navigation */}
+              <div className="ml-4">
+                <LanguageSwitcher variant="header" />
+              </div>
             </nav>
 
-            {/* Web3 Connect Button */}
+            {/* Connect Button */}
             <motion.button
               className="hidden md:flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-purple-600 text-white rounded-xl font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300"
               whileHover={{
@@ -259,6 +275,19 @@ const HeaderWeb3 = () => {
             </motion.button>
           ))}
 
+          {/* Mobile Language Switcher */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{
+              opacity: isOpen ? 1 : 0,
+              y: isOpen ? 0 : 50
+            }}
+            transition={{ delay: isOpen ? (navItems.length + 1) * 0.1 : 0 }}
+            className="mt-4"
+          >
+            <LanguageSwitcher variant="inline" showLabel={true} />
+          </motion.div>
+
           {/* Mobile Connect Button */}
           <motion.button
             onClick={() => handleNavClick('#contact')}
@@ -278,7 +307,7 @@ const HeaderWeb3 = () => {
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span>Connect Wallet</span>
+              <span>{t('contact.title')}</span>
             </span>
           </motion.button>
         </motion.div>

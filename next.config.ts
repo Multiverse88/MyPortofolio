@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   // Enhanced image optimization for mobile performance
   images: {
     formats: ["image/webp", "image/avif"],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    deviceSizes: [320, 420, 640, 750, 828, 1080, 1200], // Added smaller sizes for mobile
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
@@ -49,6 +49,7 @@ const nextConfig: NextConfig = {
 
   // Enhanced compression and performance optimizations
   compress: true,
+  poweredByHeader: false, // Remove X-Powered-By header for security
 
   // Compiler optimizations
   compiler: {
@@ -57,11 +58,9 @@ const nextConfig: NextConfig = {
 
   // Performance optimizations
   experimental: {
-    // Optimize server components
+    // Optimize loading performance
+    optimizePackageImports: ["framer-motion"],
   },
-
-  // External packages for server components
-  serverExternalPackages: ["framer-motion"],
 
   // Headers for better caching and performance
   async headers() {
@@ -93,6 +92,11 @@ const nextConfig: NextConfig = {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",
           },
+          // Mobile-specific optimizations
+          {
+            key: "Viewport",
+            value: "width=device-width, initial-scale=1, viewport-fit=cover",
+          },
         ],
       },
       {
@@ -113,23 +117,40 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/public/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400", // 1 day for public assets
+          },
+        ],
+      },
     ];
   },
 
-  // Webpack optimizations for mobile
+  // Webpack optimizations for mobile performance
   webpack: (config, { dev, isServer }) => {
     // Optimize for mobile performance
     if (!dev && !isServer) {
-      // Simplified optimization for better compatibility
       config.optimization = {
         ...config.optimization,
         splitChunks: {
           chunks: "all",
+          minSize: 10000, // Smaller minimum size for better mobile loading
+          maxSize: 250000, // Limit chunk size for mobile
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: "vendors",
               priority: 10,
+              chunks: "all",
+              maxSize: 150000, // Limit vendor chunk size
+            },
+            framerMotion: {
+              test: /[\\/]node_modules[\\/]framer-motion/,
+              name: "framer-motion",
+              priority: 20,
               chunks: "all",
             },
             common: {
@@ -138,16 +159,22 @@ const nextConfig: NextConfig = {
               priority: 5,
               chunks: "all",
               enforce: true,
+              maxSize: 100000,
             },
           },
         },
       };
+
+      // Tree shaking optimizations
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
     }
 
-    // Handle framer-motion on server side
-    if (isServer) {
-      config.externals = [...(config.externals || []), "framer-motion"];
-    }
+    // Optimize module resolution for mobile
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Add specific mobile optimizations if needed
+    };
 
     return config;
   },

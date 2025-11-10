@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import PDFViewerWeb3 from "./PDFViewerWeb3";
+import PDFModal from "./PDFModal";
+import { useTranslation } from "@/contexts/LanguageContext";
 import {
   usePerformanceOptimization,
   useOptimizedIntersection,
@@ -126,6 +127,7 @@ const certificates: Certificate[] = [
 ];
 
 const CertificatesWeb3 = () => {
+  const { t } = useTranslation();
   // Performance optimization hooks
   const { isMobile, mounted, animationConfig } = usePerformanceOptimization();
 
@@ -294,14 +296,13 @@ const CertificatesWeb3 = () => {
                   backgroundSize: "200% 200%",
                 }}
               >
-                Professional Certifications
+                {t('certificates.title')}
               </motion.h2>
               <motion.p
                 className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto mt-6"
                 variants={cardVariants}
               >
-                Industry-recognized certifications demonstrating expertise in
-                modern technologies and best practices.
+                {t('certificates.subtitle')}
               </motion.p>
             </motion.div>
 
@@ -404,8 +405,8 @@ const CertificatesWeb3 = () => {
                           <div className="mt-auto pt-4 border-t border-slate-700/50">
                             <div className="flex items-center justify-between">
                               <span className="text-sm text-gray-400 group-hover:text-green-400 transition-colors">
-                                Click to{" "}
-                                {cert.type === "pdf" ? "view" : "verify"}
+                                {t('certificates.clickTo')} {" "}
+                                {cert.type === "pdf" ? t('certificates.viewCertificate') : t('certificates.verify')}
                               </span>
                               <motion.div
                                 className="w-8 h-8 rounded-full bg-green-600/20 border border-green-500/30 flex items-center justify-center group-hover:bg-green-600/30 transition-colors"
@@ -502,7 +503,7 @@ const CertificatesWeb3 = () => {
       {/* PDF Viewer Modal */}
       <AnimatePresence>
         {showPDFViewer && selectedPdf && selectedTitle && (
-          <PDFViewerWeb3
+          <PDFModal
             pdfUrl={selectedPdf}
             title={selectedTitle}
             onClose={closePdfModal}
