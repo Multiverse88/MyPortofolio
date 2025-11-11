@@ -71,8 +71,7 @@ const FooterWeb3 = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
@@ -227,7 +226,7 @@ const FooterWeb3 = () => {
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 group flex items-center"
+                    className="flex text-gray-300 hover:text-cyan-400 transition-colors duration-300 group items-center"
                     whileHover={{ x: 5 }}
                     onClick={(e) => {
                       if (link.href.startsWith('#')) {

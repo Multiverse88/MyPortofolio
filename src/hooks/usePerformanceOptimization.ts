@@ -135,22 +135,27 @@ export const useOptimizedIntersection = (options = {}) => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           setIsIntersecting(entry.isIntersecting);
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasIntersected) {
             setHasIntersected(true);
+            // Once intersected, keep it as true to prevent disappearing
           }
         },
         {
-          threshold: 0.1,
-          rootMargin: "50px",
+          threshold: 0.01, // Reduced threshold for better detection
+          rootMargin: "100px 0px 100px 0px", // Increased margin
           ...options,
         },
       );
 
       observer.observe(node);
 
-      return () => observer.disconnect();
+      // Return cleanup function
+      return () => {
+        observer.unobserve(node);
+        observer.disconnect();
+      };
     },
-    [options],
+    [hasIntersected, options],
   );
 
   return { ref, isIntersecting, hasIntersected };

@@ -30,15 +30,17 @@ const ProfileImage = ({
     profileImageSVG // SVG fallback
   ].filter(Boolean);
 
-  // Debug logging
-  console.log('ProfileImage Debug:', {
-    size,
-    imageLoaded,
-    imageError,
-    currentSource,
-    totalSources: imageSources.length,
-    currentImageUrl: imageSources[currentSource]
-  });
+  // Development logging
+  if (process.env.NODE_ENV === 'development') {
+    console.log('ProfileImage Debug:', {
+      size,
+      imageLoaded,
+      imageError,
+      currentSource,
+      totalSources: imageSources.length,
+      currentImageUrl: imageSources[currentSource]
+    });
+  }
 
   const sizeClasses = {
     small: 'w-20 h-20',
@@ -109,21 +111,29 @@ const ProfileImage = ({
           display: 'block !important', // Force display
         }}
         onLoad={() => {
-          console.log('Image loaded successfully:', imageSources[currentSource]);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Image loaded successfully:', imageSources[currentSource]);
+          }
           setImageLoaded(true);
         }}
         onError={(e) => {
-          console.log('Image error:', e.currentTarget.src);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Image error:', e.currentTarget.src);
+          }
           // Try next image source
           const nextIndex = currentSource + 1;
           
           if (nextIndex < imageSources.length && imageSources[nextIndex]) {
-            console.log('Trying next source:', imageSources[nextIndex]);
+            if (process.env.NODE_ENV === 'development') {
+              console.log('Trying next source:', imageSources[nextIndex]);
+            }
             setCurrentSource(nextIndex);
             setImageLoaded(false);
             e.currentTarget.src = imageSources[nextIndex]!;
           } else {
-            console.log('All sources failed, showing fallback');
+            if (process.env.NODE_ENV === 'development') {
+              console.log('All sources failed, showing fallback');
+            }
             setImageError(true);
           }
         }}

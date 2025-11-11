@@ -128,56 +128,28 @@ const certificates: Certificate[] = [
 
 const CertificatesWeb3 = () => {
   const { t } = useTranslation();
-  // Performance optimization hooks
-  const { isMobile, mounted, animationConfig } = usePerformanceOptimization();
-
-  // Intersection observer for lazy loading
-  const { ref: sectionRef, hasIntersected } = useOptimizedIntersection({
-    threshold: 0.1,
-    rootMargin: "100px",
-  });
-
-  // State management
+  // Simplified state management
+  const [mounted, setMounted] = useState(false);
   const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>(
     {},
   );
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
   const [selectedTitle, setSelectedTitle] = useState<string>("");
   const [showPDFViewer, setShowPDFViewer] = useState(false);
-  const [loadedCertificates, setLoadedCertificates] = useState<number[]>([]);
 
-  // Performance optimization - batch loading
+  // Mount effect - load all certificates immediately
   useEffect(() => {
-    if (!hasIntersected || !mounted) return;
+    setMounted(true);
+  }, []);
 
-    const loadCertificatesBatch = () => {
-      const batchSize = isMobile ? 3 : 6;
-      const totalCertificates = certificates.length;
-
-      if (loadedCertificates.length < totalCertificates) {
-        const nextBatch = certificates
-          .slice(
-            loadedCertificates.length,
-            loadedCertificates.length + batchSize,
-          )
-          .map((cert) => cert.id);
-        setLoadedCertificates((prev) => [...prev, ...nextBatch]);
-      }
-    };
-
-    if (loadedCertificates.length === 0) {
-      loadCertificatesBatch();
-    }
-  }, [hasIntersected, mounted, isMobile, loadedCertificates.length]);
-
-  // Animation variants
+  // Animation variants - simplified
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        duration: animationConfig.reduce ? 0.2 : 1,
-        staggerChildren: animationConfig.reduce ? 0.05 : 0.15,
+        duration: 1,
+        staggerChildren: 0.15,
       },
     },
   };
@@ -217,29 +189,33 @@ const CertificatesWeb3 = () => {
     }
   };
 
-  if (!mounted) {
-    return (
-      <section className="py-20 bg-slate-900">
-        <div className="container mx-auto px-4">
-          <div className="animate-pulse space-y-8">
-            <div className="h-12 bg-slate-700 rounded-lg mx-auto w-64"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-96 bg-slate-700 rounded-2xl"></div>
-              ))}
+  // Error boundary fallback - simplified
+  const renderWithErrorBoundary = (content: React.ReactNode) => {
+    if (!mounted) {
+      return (
+        <section id="certificates" className="py-20 bg-slate-900">
+          <div className="container mx-auto px-4">
+            <div className="animate-pulse space-y-8">
+              <div className="h-12 bg-slate-700 rounded-lg mx-auto w-64"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="h-96 bg-slate-700 rounded-2xl"></div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    );
-  }
+        </section>
+      );
+    }
+    
+    return content;
+  };
 
-  return (
+  return renderWithErrorBoundary(
     <>
       <section
         id="certificates"
         className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden"
-        ref={sectionRef}
       >
         {/* Enhanced Background Elements */}
         <div className="absolute inset-0">
@@ -311,9 +287,7 @@ const CertificatesWeb3 = () => {
               variants={cardVariants}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {certificates
-                .filter((cert) => loadedCertificates.includes(cert.id))
-                .map((cert) => (
+              {certificates.map((cert) => (
                   <motion.div
                     key={cert.id}
                     variants={cardVariants}
@@ -457,28 +431,6 @@ const CertificatesWeb3 = () => {
                   </motion.div>
                 ))}
             </motion.div>
-
-            {/* Load More Button */}
-            {loadedCertificates.length < certificates.length && (
-              <motion.div variants={itemVariants} className="text-center mt-12">
-                <motion.button
-                  onClick={() => {
-                    const remaining = certificates.filter(
-                      (cert) => !loadedCertificates.includes(cert.id),
-                    );
-                    const nextBatch = remaining
-                      .slice(0, isMobile ? 3 : 6)
-                      .map((cert) => cert.id);
-                    setLoadedCertificates((prev) => [...prev, ...nextBatch]);
-                  }}
-                  className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-medium transition-all duration-200 shadow-lg shadow-green-500/25 hover:shadow-green-500/40"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Load More Certificates
-                </motion.button>
-              </motion.div>
-            )}
 
             {/* Bottom Call to Action */}
             <motion.div variants={itemVariants} className="text-center mt-16">

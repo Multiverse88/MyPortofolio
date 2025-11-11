@@ -75,9 +75,6 @@ const ProjectsNew = () => {
   const [previewLoading, setPreviewLoading] = useState<{ [key: number]: boolean }>({});
   const [showLoginInfo, setShowLoginInfo] = useState<number | null>(null);
 
-  // Debug logging
-  console.log('ProjectsNew: isMobile =', isMobile, 'projects count =', projects.length);
-
   return (
     <section id="projects" className="pt-12 pb-20 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

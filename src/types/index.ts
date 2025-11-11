@@ -22,7 +22,7 @@ export interface Experience {
 
 export interface Skill {
   name: string;
-  level: string; // 'Beginner', 'Intermediate', 'Advanced', 'Expert'
+  level: number; // 1-100
   category: 'frontend' | 'backend' | 'database' | 'tools' | 'other';
 }
 

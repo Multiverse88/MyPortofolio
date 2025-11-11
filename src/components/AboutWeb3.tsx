@@ -28,14 +28,14 @@ const AboutWeb3 = () => {
   }, []);
 
   const skills: Skill[] = [
-    { name: 'Node.js', level: 'Expert', category: 'backend' },
-    { name: 'Google Cloud Platform', level: 'Advanced', category: 'tools' },
-    { name: 'React', level: 'Expert', category: 'frontend' },
-    { name: 'Next.js', level: 'Advanced', category: 'frontend' },
-    { name: 'Sequelize', level: 'Advanced', category: 'database' },
-    { name: 'JavaScript', level: 'Expert', category: 'frontend' },
-    { name: 'Tailwind CSS', level: 'Expert', category: 'frontend' },
-    { name: 'API Development', level: 'Advanced', category: 'backend' },
+    { name: 'Node.js', level: 90, category: 'backend' },
+    { name: 'Google Cloud Platform', level: 85, category: 'tools' },
+    { name: 'React', level: 88, category: 'frontend' },
+    { name: 'Next.js', level: 85, category: 'frontend' },
+    { name: 'Sequelize', level: 82, category: 'database' },
+    { name: 'JavaScript', level: 90, category: 'frontend' },
+    { name: 'Tailwind CSS', level: 88, category: 'frontend' },
+    { name: 'API Development', level: 85, category: 'backend' },
   ];
 
   const containerVariants = {
@@ -58,8 +58,7 @@ const AboutWeb3 = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
@@ -74,32 +73,12 @@ const AboutWeb3 = () => {
     }
   };
 
-  const getSkillLevelColor = (level: string) => {
-    switch (level) {
-      case 'Expert': return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30';
-      case 'Advanced': return 'text-blue-400 bg-blue-400/10 border-blue-400/30';
-      case 'Intermediate': return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30';
-      case 'Beginner': return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
-      default: return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
-    }
-  };
-
-  const getSkillStars = (level: string) => {
-    switch (level) {
-      case 'Expert': return 5;
-      case 'Advanced': return 4;
-      case 'Intermediate': return 3;
-      case 'Beginner': return 2;
-      default: return 1;
-    }
-  };
-
   if (!mounted) {
     return (
       <section className="py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8 bg-slate-700 rounded mb-8 animate-pulse" />
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-2 gap-12">
             <div className="space-y-4">
               {[1, 2, 3].map(i => (
                 <div key={i} className="h-4 bg-slate-700 rounded animate-pulse" />
@@ -114,7 +93,7 @@ const AboutWeb3 = () => {
 
   return (
     <section id="about" className="py-20 bg-slate-800 relative overflow-hidden">
-      {/* Developer Background Pattern */}
+      {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="w-full h-full"
@@ -129,17 +108,17 @@ const AboutWeb3 = () => {
       </div>
 
       {/* Floating Elements */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
           style={{
-            left: `${10 + (i * 15)}%`,
-            top: `${20 + Math.sin(i) * 30}%`,
+            left: `${10 + (i * 25)}%`,
+            top: `${20 + Math.sin(i) * 20}%`,
           }}
           animate={{
-            y: [0, -20, 0],
-            opacity: [0.3, 0.8, 0.3],
+            y: [0, -15, 0],
+            opacity: [0.3, 0.7, 0.3],
           }}
           transition={{
             duration: 3 + i,
@@ -149,24 +128,21 @@ const AboutWeb3 = () => {
         />
       ))}
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-50px" }}
         >
           {/* Section Header */}
-          <motion.div
-            variants={itemVariants}
-            className="text-center mb-16"
-          >
+          <motion.div variants={itemVariants} className="text-center mb-16">
             <motion.h2
-              className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+              className="text-4xl lg:text-5xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
               animate={{
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              transition={{ duration: 4, repeat: Infinity }}
               style={{ backgroundSize: '200% 200%' }}
             >
               {t('about.title')}
@@ -179,13 +155,14 @@ const AboutWeb3 = () => {
             />
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            {/* Left Content */}
-            <motion.div variants={itemVariants} className="space-y-6">
+            {/* Left Column - About Text & Stats */}
+            <motion.div variants={itemVariants} className="space-y-8">
 
-              {/* Main Text */}
-              <div className="space-y-4">
+              {/* About Description */}
+              <div className="space-y-6">
                 <motion.p
                   className="text-gray-300 text-lg leading-relaxed"
                   variants={itemVariants}
@@ -208,50 +185,54 @@ const AboutWeb3 = () => {
                 </motion.p>
               </div>
 
-              {/* Stats Cards */}
+              {/* Stats Grid */}
               <motion.div
                 variants={itemVariants}
-                className="grid grid-cols-2 gap-4 pt-6"
+                className="grid grid-cols-2 gap-4"
               >
                 {[
-                  { number: "3+", label: t('about.stats.experience'), icon: <HiLightningBolt /> },
-                  { number: "50+", label: t('about.stats.projects'), icon: <HiCode /> },
-                  { number: "⭐⭐⭐⭐⭐", label: t('about.stats.satisfaction'), icon: <HiSparkles /> },
-                  { number: "24/7", label: t('about.stats.availability'), icon: <HiGlobe /> }
+                  { number: "3+", label: t('about.stats.experience'), icon: <HiLightningBolt className="w-6 h-6" /> },
+                  { number: "50+", label: t('about.stats.projects'), icon: <HiCode className="w-6 h-6" /> },
+                  { number: "100%", label: t('about.stats.satisfaction'), icon: <HiSparkles className="w-6 h-6" /> },
+                  { number: "24/7", label: t('about.stats.availability'), icon: <HiGlobe className="w-6 h-6" /> }
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
-                    className="portfolio-glass rounded-xl p-4 text-center border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300"
+                    className="portfolio-glass rounded-xl p-6 text-center border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 group"
                     whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 30px rgba(6, 182, 212, 0.2)"
+                      scale: 1.02,
+                      y: -5,
+                      boxShadow: "0 10px 30px rgba(6, 182, 212, 0.15)"
                     }}
                     variants={itemVariants}
                   >
-                    <div className="text-2xl mb-1">{stat.icon}</div>
-                    <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    <div className="text-cyan-400 mb-3 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                      {stat.icon}
+                    </div>
+                    <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">
                       {stat.number}
                     </div>
-                    <div className="text-gray-400 text-sm">{stat.label}</div>
+                    <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* Right Content - Profile & Skills */}
+            {/* Right Column - Profile & Skills */}
             <motion.div variants={itemVariants} className="space-y-8">
 
               {/* Profile Card */}
               <motion.div
-                className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20"
+                className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20 group"
                 whileHover={{
-                  scale: 1.02,
-                  borderColor: "rgba(6, 182, 212, 0.4)"
+                  borderColor: "rgba(6, 182, 212, 0.4)",
+                  boxShadow: "0 10px 30px rgba(6, 182, 212, 0.1)"
                 }}
+                variants={itemVariants}
               >
-                <div className="text-center mb-6">
+                <div className="text-center">
                   <motion.div
-                    className="relative w-32 h-32 mx-auto mb-4"
+                    className="relative w-32 h-32 mx-auto mb-6"
                     whileHover={{ scale: 1.05 }}
                   >
                     <motion.div
@@ -264,7 +245,7 @@ const AboutWeb3 = () => {
                           src="/images/ainan-profile.jpg"
                           alt="Ainan Bahrul Ihsan"
                           fill
-                          className="object-cover object-center"
+                          className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
                           onError={(e) => {
                             e.currentTarget.src = 'https://github.com/Multiverse88.png';
                           }}
@@ -274,62 +255,80 @@ const AboutWeb3 = () => {
                   </motion.div>
 
                   <h3 className="text-xl font-bold text-white mb-2">{t('about.profile.name')}</h3>
-                  <p className="text-cyan-400 font-medium">{t('about.profile.role')}</p>
-                  <p className="text-gray-400 text-sm mt-2">{t('about.profile.university')}</p>
+                  <p className="text-cyan-400 font-medium mb-2">{t('about.profile.role')}</p>
+                  <p className="text-gray-400 text-sm">{t('about.profile.university')}</p>
                 </div>
               </motion.div>
 
-              {/* Skills Section */}
+              {/* Technical Skills Section */}
               <motion.div
                 variants={itemVariants}
                 className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20"
               >
-                <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <span className="mr-2">🛠️</span>
-                  {t('about.skills.title')}
-                </h3>
+                <div className="flex items-center mb-6">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mr-3">
+                    <span className="text-white text-sm font-bold">�</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">
+                    {t('about.skills.title')}
+                  </h3>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-5">
                   {skills.map((skill, index) => (
                     <motion.div
                       key={skill.name}
-                      className={`p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-cyan-400/40 transition-all duration-300 portfolio-glass`}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      className="group"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
                       viewport={{ once: true }}
-                      whileHover={{ scale: 1.02 }}
                     >
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="flex-1">
-                          <h4 className="text-gray-200 font-semibold text-lg">{skill.name}</h4>
-                          <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium border mt-2 ${getSkillLevelColor(skill.level)}`}>
-                            {skill.level}
-                          </span>
-                        </div>
-                        <div className="ml-3">
-                          <div className="flex space-x-1">
-                            {Array.from({ length: 5 }).map((_, starIndex) => (
-                              <motion.div
-                                key={starIndex}
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                transition={{ delay: index * 0.1 + starIndex * 0.05 }}
-                                viewport={{ once: true }}
-                              >
-                                <span className={`text-lg ${starIndex < getSkillStars(skill.level) ? 'text-yellow-400' : 'text-gray-600'}`}>
-                                  ★
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-gray-200 font-medium group-hover:text-white transition-colors">
+                          {skill.name}
+                        </span>
+                        <span className="text-cyan-400 font-bold text-sm">
+                          {skill.level}%
+                        </span>
                       </div>
-                      
-                      <div className={`h-1 w-full rounded-full bg-gradient-to-r ${getSkillColor(skill.category)} opacity-60`}></div>
+                      <div className="w-full bg-gray-700/50 rounded-full h-2.5 overflow-hidden group-hover:bg-gray-700/70 transition-colors">
+                        <motion.div
+                          className={`h-full bg-gradient-to-r ${getSkillColor(skill.category)} rounded-full relative`}
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          transition={{ 
+                            duration: 1.2, 
+                            delay: index * 0.1,
+                            ease: "easeOut"
+                          }}
+                          viewport={{ once: true }}
+                        >
+                          <motion.div 
+                            className="absolute inset-0 bg-white/20 rounded-full"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0.5, 0] }}
+                            transition={{ 
+                              duration: 2, 
+                              repeat: Infinity,
+                              delay: index * 0.2 
+                            }}
+                          />
+                        </motion.div>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
+
+                {/* Skills Footer */}
+                <motion.div 
+                  className="mt-6 pt-4 border-t border-gray-700/50"
+                  variants={itemVariants}
+                >
+                  <p className="text-gray-400 text-sm text-center">
+                    Continuously learning and improving these technologies
+                  </p>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
