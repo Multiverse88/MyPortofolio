@@ -59,7 +59,17 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   experimental: {
     // Optimize loading performance
-    optimizePackageImports: ["framer-motion"],
+    optimizePackageImports: ["framer-motion", "react-icons", "@heroicons/react"],
+  },
+
+  // Modern bundling optimization
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
 
   // Headers for better caching and performance
@@ -138,20 +148,28 @@ const nextConfig: NextConfig = {
         splitChunks: {
           chunks: "all",
           minSize: 10000, // Smaller minimum size for better mobile loading
-          maxSize: 250000, // Limit chunk size for mobile
+          maxSize: 200000, // Reduced chunk size for faster loading
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: "vendors",
               priority: 10,
               chunks: "all",
-              maxSize: 150000, // Limit vendor chunk size
+              maxSize: 120000, // Smaller vendor chunks
             },
             framerMotion: {
               test: /[\\/]node_modules[\\/]framer-motion/,
               name: "framer-motion",
               priority: 20,
               chunks: "all",
+              maxSize: 80000,
+            },
+            reactIcons: {
+              test: /[\\/]node_modules[\\/]react-icons/,
+              name: "react-icons",
+              priority: 15,
+              chunks: "all",
+              maxSize: 50000,
             },
             common: {
               name: "common",
@@ -159,22 +177,36 @@ const nextConfig: NextConfig = {
               priority: 5,
               chunks: "all",
               enforce: true,
-              maxSize: 100000,
+              maxSize: 80000,
             },
           },
         },
+        // Additional performance optimizations
+        usedExports: true,
+        sideEffects: false,
+        concatenateModules: true,
+        // Optimize module loading
+        moduleIds: 'deterministic',
+        chunkIds: 'deterministic',
       };
-
-      // Tree shaking optimizations
-      config.optimization.usedExports = true;
-      config.optimization.sideEffects = false;
     }
 
     // Optimize module resolution for mobile
     config.resolve.alias = {
       ...config.resolve.alias,
-      // Add specific mobile optimizations if needed
+      // Optimize specific libraries for mobile
     };
+
+    // Preload optimization
+    config.module.rules.push({
+      test: /\.(png|jpe?g|gif|svg|webp|avif)$/,
+      use: {
+        loader: 'next/image-loader',
+        options: {
+          domains: ['github.com', 'avatars.githubusercontent.com'],
+        },
+      },
+    });
 
     return config;
   },

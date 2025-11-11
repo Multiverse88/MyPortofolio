@@ -307,11 +307,7 @@ const ContactWeb3 = () => {
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
-                      <motion.div
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2 animate-pulse" />
                       {t('contact.form.sending')}
                     </span>
                   ) : (

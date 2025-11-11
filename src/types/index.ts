@@ -24,6 +24,7 @@ export interface Skill {
   name: string;
   level: number; // 1-100
   category: 'frontend' | 'backend' | 'database' | 'tools' | 'other';
+  proficiency: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
 }
 
 export interface ContactInfo {

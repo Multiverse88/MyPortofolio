@@ -94,11 +94,7 @@ const HeaderWeb3 = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <motion.div
-                className="relative"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
+              <div className="relative">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 p-0.5">
                   <div className="w-full h-full rounded-lg bg-slate-900 flex items-center justify-center">
                     <span className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -106,7 +102,7 @@ const HeaderWeb3 = () => {
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               <div className="hidden sm:block">
                 <motion.h1

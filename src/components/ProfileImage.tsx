@@ -82,11 +82,7 @@ const ProfileImage = ({
   // Loading placeholder
   const LoadingPlaceholder = () => (
     <div className={`${sizeClasses[size]} bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl animate-pulse flex items-center justify-center ${className}`}>
-      <motion.div 
-        className="w-8 h-8 border-3 border-gray-400 border-t-transparent rounded-full"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-      />
+      <div className="w-8 h-8 border-3 border-gray-400 border-t-transparent rounded-full" />
     </div>
   );
 

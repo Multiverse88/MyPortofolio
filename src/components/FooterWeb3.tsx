@@ -163,17 +163,15 @@ const FooterWeb3 = () => {
                   className="flex items-center space-x-3 mb-4"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.div
+                  <div
                     className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 p-0.5"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   >
                     <div className="w-full h-full rounded-lg bg-slate-950 flex items-center justify-center">
                       <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                         A
                       </span>
                     </div>
-                  </motion.div>
+                  </div>
                   <div>
                     <motion.h3
                       className="text-2xl font-black bg-gradient-to-r from-white via-cyan-400 to-white bg-clip-text text-transparent"

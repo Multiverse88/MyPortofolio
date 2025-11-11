@@ -214,11 +214,7 @@ const ProjectsNew = () => {
                               {/* Loading Overlay */}
                               {previewLoading[project.id] && !project.usesJWT && (
                                 <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-20">
-                                  <motion.div 
-                                    className="w-8 h-8 border-4 border-[#58A0C8] border-t-transparent rounded-full"
-                                    animate={{ rotate: 360 }}
-                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                  />
+                                  <div className="w-8 h-8 border-4 border-[#58A0C8] border-t-transparent rounded-full animate-pulse" />
                                 </div>
                               )}
                               

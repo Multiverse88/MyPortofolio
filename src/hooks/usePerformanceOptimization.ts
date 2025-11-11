@@ -89,15 +89,17 @@ export const usePerformanceOptimization = () => {
   // Image optimization settings
   const imageConfig = useMemo(
     () => ({
-      quality: isMobile ? 75 : 90,
-      priority: !isMobile,
+      quality: connectionSpeed === "slow" || isLowEndDevice ? 60 : isMobile ? 75 : 85,
+      priority: !isMobile && connectionSpeed === "fast",
       sizes: isMobile
         ? "(max-width: 768px) 100vw, 50vw"
         : "(max-width: 1200px) 50vw, 33vw",
-      placeholder: connectionSpeed === "slow" ? "blur" : undefined,
+      placeholder: connectionSpeed === "slow" || isLowEndDevice ? "blur" : undefined,
       loading: "lazy" as const,
+      formats: ["image/webp", "image/avif"],
+      unoptimized: false,
     }),
-    [isMobile, connectionSpeed],
+    [isMobile, isLowEndDevice, connectionSpeed],
   );
 
   // Lazy loading configuration

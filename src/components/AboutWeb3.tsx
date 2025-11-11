@@ -28,14 +28,14 @@ const AboutWeb3 = () => {
   }, []);
 
   const skills: Skill[] = [
-    { name: 'Node.js', level: 90, category: 'backend' },
-    { name: 'Google Cloud Platform', level: 85, category: 'tools' },
-    { name: 'React', level: 88, category: 'frontend' },
-    { name: 'Next.js', level: 85, category: 'frontend' },
-    { name: 'Sequelize', level: 82, category: 'database' },
-    { name: 'JavaScript', level: 90, category: 'frontend' },
-    { name: 'Tailwind CSS', level: 88, category: 'frontend' },
-    { name: 'API Development', level: 85, category: 'backend' },
+    { name: 'Node.js', level: 90, category: 'backend', proficiency: 'Expert' },
+    { name: 'Google Cloud Platform', level: 85, category: 'tools', proficiency: 'Advanced' },
+    { name: 'React', level: 88, category: 'frontend', proficiency: 'Expert' },
+    { name: 'Next.js', level: 85, category: 'frontend', proficiency: 'Advanced' },
+    { name: 'Sequelize', level: 82, category: 'database', proficiency: 'Advanced' },
+    { name: 'JavaScript', level: 90, category: 'frontend', proficiency: 'Expert' },
+    { name: 'Tailwind CSS', level: 88, category: 'frontend', proficiency: 'Expert' },
+    { name: 'API Development', level: 85, category: 'backend', proficiency: 'Advanced' },
   ];
 
   const containerVariants = {
@@ -235,10 +235,8 @@ const AboutWeb3 = () => {
                     className="relative w-32 h-32 mx-auto mb-6"
                     whileHover={{ scale: 1.05 }}
                   >
-                    <motion.div
+                    <div
                       className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                     >
                       <div className="w-full h-full rounded-xl overflow-hidden bg-slate-900">
                         <Image
@@ -251,7 +249,7 @@ const AboutWeb3 = () => {
                           }}
                         />
                       </div>
-                    </motion.div>
+                    </div>
                   </motion.div>
 
                   <h3 className="text-xl font-bold text-white mb-2">{t('about.profile.name')}</h3>
@@ -289,32 +287,32 @@ const AboutWeb3 = () => {
                           {skill.name}
                         </span>
                         <span className="text-cyan-400 font-bold text-sm">
-                          {skill.level}%
+                          {skill.proficiency}
                         </span>
                       </div>
-                      <div className="w-full bg-gray-700/50 rounded-full h-2.5 overflow-hidden group-hover:bg-gray-700/70 transition-colors">
-                        <motion.div
-                          className={`h-full bg-gradient-to-r ${getSkillColor(skill.category)} rounded-full relative`}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{ 
-                            duration: 1.2, 
-                            delay: index * 0.1,
-                            ease: "easeOut"
-                          }}
-                          viewport={{ once: true }}
-                        >
-                          <motion.div 
-                            className="absolute inset-0 bg-white/20 rounded-full"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 0.5, 0] }}
-                            transition={{ 
-                              duration: 2, 
-                              repeat: Infinity,
-                              delay: index * 0.2 
-                            }}
-                          />
-                        </motion.div>
+                      <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden group-hover:bg-gray-700/70 transition-colors">
+                        <div className="flex items-center justify-center h-full space-x-1 px-2">
+                          {[...Array(5)].map((_, starIndex) => {
+                            const filled = starIndex < Math.ceil((skill.level / 100) * 5);
+                            return (
+                              <motion.div
+                                key={starIndex}
+                                className={`w-2 h-2 rounded-full ${
+                                  filled 
+                                    ? `bg-gradient-to-r ${getSkillColor(skill.category)}` 
+                                    : 'bg-gray-600'
+                                }`}
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                transition={{ 
+                                  duration: 0.3, 
+                                  delay: index * 0.1 + starIndex * 0.05,
+                                }}
+                                viewport={{ once: true }}
+                              />
+                            );
+                          })}
+                        </div>
                       </div>
                     </motion.div>
                   ))}
@@ -326,7 +324,7 @@ const AboutWeb3 = () => {
                   variants={itemVariants}
                 >
                   <p className="text-gray-400 text-sm text-center">
-                    Continuously learning and improving these technologies
+                    Skills rated by proficiency level: Beginner → Expert
                   </p>
                 </motion.div>
               </motion.div>

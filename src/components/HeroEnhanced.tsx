@@ -257,8 +257,8 @@ const HeroEnhanced = () => {
                 <motion.span
                   key={skill}
                   className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white/90 text-sm rounded-full border border-white/20 cursor-default"
-                  initial={{ opacity: 0, scale: 0, rotateX: -90 }}
-                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{
                     delay: 1.5 + index * 0.15,
                     type: "spring",
@@ -434,14 +434,8 @@ const HeroEnhanced = () => {
                     }}
                   >
                     {/* Glowing Ring */}
-                    <motion.div
+                    <div
                       className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
                     >
                       <div className="w-full h-full rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 p-2">
                         <div className="relative w-full h-full rounded-xl overflow-hidden">
@@ -473,7 +467,7 @@ const HeroEnhanced = () => {
                           />
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Status Indicator */}
                     <motion.div
@@ -542,8 +536,8 @@ const HeroEnhanced = () => {
                         <motion.div
                           key={tech.name}
                           className={`w-10 h-10 bg-gradient-to-r ${tech.color} rounded-xl flex items-center justify-center shadow-lg cursor-pointer relative overflow-hidden`}
-                          initial={{ scale: 0, rotate: -180, opacity: 0 }}
-                          animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
                           transition={{
                             delay: 2.2 + index * 0.15,
                             type: "spring",

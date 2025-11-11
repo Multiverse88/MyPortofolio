@@ -25,6 +25,8 @@ html {
     text-rendering: optimizeSpeed; /* Changed from optimizeLegibility for mobile performance */
     /* Optimize compositing */
     contain: layout style paint;
+    /* Enable font-display swap for faster loading */
+    font-display: swap;
 }
 
 /* Reduce paint complexity for mobile */
@@ -35,6 +37,8 @@ html {
     box-sizing: border-box;
     /* Optimize repaints */
     backface-visibility: hidden;
+    /* Improve performance by reducing layout calculations */
+    contain-intrinsic-size: auto 100px;
 }
 
 /* Mobile-optimized body */
@@ -51,6 +55,8 @@ body {
     min-height: 100vh;
     /* Better mobile font size */
     -webkit-text-size-adjust: 100%;
+    /* Critical loading optimization */
+    visibility: visible;
 }
 
 /* Optimize images for mobile performance */

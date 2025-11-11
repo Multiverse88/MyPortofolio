@@ -2,47 +2,51 @@
 
 import dynamic from "next/dynamic";
 import { Suspense, useState, useEffect } from "react";
-import { useDeviceCapabilities } from "@/hooks/useDeviceCapabilities";
 
-// Mobile-optimized components
-const HeroMobileOptimized = dynamic(() => import("@/components/HeroMobileOptimized"), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-slate-900 animate-pulse" />,
-});
-
-// Modern portfolio components for desktop
-const HeroWeb3 = dynamic(() => import("@/components/HeroWeb3"), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-slate-900 animate-pulse" />,
-});
-
-// Other components with performance considerations
-const AboutWeb3 = dynamic(() => import("@/components/AboutWeb3"), {
-  ssr: false,
-});
-const ExperienceWeb3 = dynamic(() => import("@/components/ExperienceWeb3"), {
-  ssr: false,
-});
-const CertificatesWeb3 = dynamic(
-  () => import("@/components/CertificatesWeb3"),
-  {
-    ssr: false,
-  },
-);
-const ProjectsNew = dynamic(() => import("@/components/ProjectsNew"), {
-  ssr: false,
-});
-const ContactWeb3 = dynamic(() => import("@/components/ContactWeb3"), {
-  ssr: false,
-});
-const FooterWeb3 = dynamic(() => import("@/components/FooterWeb3"), {
-  ssr: false,
-});
+// Critical components - load immediately
 const HeaderWeb3 = dynamic(() => import("@/components/HeaderWeb3"), {
   ssr: false,
   loading: () => (
     <div className="h-20 bg-slate-900/50 backdrop-blur-sm animate-pulse" />
   ),
+});
+
+const HeroWeb3 = dynamic(() => import("@/components/HeroWeb3"), {
+  ssr: false,
+  loading: () => <div className="min-h-screen bg-slate-900 animate-pulse" />,
+});
+
+const AboutWeb3 = dynamic(() => import("@/components/AboutWeb3"), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-slate-800 animate-pulse" />,
+});
+
+const ExperienceWeb3 = dynamic(() => import("@/components/ExperienceWeb3"), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-slate-900 animate-pulse" />,
+});
+
+const CertificatesWeb3 = dynamic(
+  () => import("@/components/CertificatesWeb3"),
+  {
+    ssr: false,
+    loading: () => <div className="h-96 bg-slate-800 animate-pulse" />,
+  },
+);
+
+const ProjectsNew = dynamic(() => import("@/components/ProjectsNew"), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-slate-900 animate-pulse" />,
+});
+
+const ContactWeb3 = dynamic(() => import("@/components/ContactWeb3"), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-slate-800 animate-pulse" />,
+});
+
+const FooterWeb3 = dynamic(() => import("@/components/FooterWeb3"), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-slate-950 animate-pulse" />,
 });
 
 // JSON-LD Structured Data for SEO
@@ -88,23 +92,19 @@ const jsonLd = {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const capabilities = useDeviceCapabilities();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Show loading screen until mounted and capabilities detected
+  // Show loading screen until mounted
   if (!mounted) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-cyan-400 text-lg">Loading...</div>
+        <div className="text-cyan-400 text-lg animate-pulse">Loading...</div>
       </div>
     );
   }
-
-  // Choose Hero component based on device capabilities
-  const HeroComponent = capabilities.isLowEndDevice || capabilities.isMobile ? HeroMobileOptimized : HeroWeb3;
 
   return (
     <>
@@ -115,6 +115,7 @@ export default function Home() {
       />
 
       <div className="min-h-screen">
+        {/* Critical above-the-fold content */}
         <Suspense
           fallback={
             <div className="h-20 bg-slate-900/50 backdrop-blur-sm animate-pulse" />
@@ -126,9 +127,9 @@ export default function Home() {
         <Suspense
           fallback={<div className="min-h-screen bg-slate-900 animate-pulse" />}
         >
-          <HeroComponent />
+          <HeroWeb3 />
         </Suspense>
-        
+
         <Suspense
           fallback={<div className="h-96 bg-slate-800 animate-pulse" />}
         >
@@ -159,7 +160,12 @@ export default function Home() {
           <ContactWeb3 />
         </Suspense>
         
-        <FooterWeb3 />
+        {/* Footer loads last */}
+        <Suspense
+          fallback={<div className="h-64 bg-slate-950 animate-pulse" />}
+        >
+          <FooterWeb3 />
+        </Suspense>
       </div>
     </>
   );

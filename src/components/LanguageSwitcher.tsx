@@ -70,9 +70,9 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           <motion.span 
             className="text-lg"
             key={language}
-            initial={{ rotateY: -90, opacity: 0 }}
-            animate={{ rotateY: 0, opacity: 1 }}
-            exit={{ rotateY: 90, opacity: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             {currentLang?.flag}
@@ -98,16 +98,14 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
               {currentLang?.code.toUpperCase()}
             </span>
           )}
-          <motion.svg
-            className="w-4 h-4 text-cyan-300"
+          <svg
+            className={`w-4 h-4 text-cyan-300 transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </motion.svg>
+          </svg>
         </motion.button>
 
         <AnimatePresence>
@@ -173,8 +171,8 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     >
       <motion.span
         key={language}
-        initial={{ rotateY: -90, opacity: 0 }}
-        animate={{ rotateY: 0, opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
         {currentLang?.flag}

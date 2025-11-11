@@ -181,20 +181,19 @@ const HeroBackground = ({ mousePosition = { x: 0, y: 0 } }: HeroBackgroundProps)
       {/* Geometric Shapes */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-4 h-4 border border-cyan-400/40 rotate-45"
-        animate={{ rotate: [45, 405] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        animate={{ opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <motion.div
         className="absolute bottom-1/3 right-1/4 w-6 h-6 border border-purple-400/40"
         animate={{
-          rotate: [0, 360],
           scale: [1, 1.2, 1]
         }}
         transition={{
-          duration: 6,
+          duration: 4,
           repeat: Infinity,
-          ease: "linear"
+          ease: "easeInOut"
         }}
       />
 

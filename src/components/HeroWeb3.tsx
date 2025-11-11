@@ -311,8 +311,8 @@ const HeroWeb3 = () => {
                 <motion.span
                   key={skill}
                   className="px-3 py-1 bg-slate-800/80 backdrop-blur-sm text-cyan-100 text-sm rounded-full border border-cyan-400/30 cursor-default"
-                  initial={{ opacity: 0, scale: 0, rotateX: -90 }}
-                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{
                     delay: 1.5 + index * 0.15,
                     type: "spring",
@@ -494,17 +494,11 @@ const HeroWeb3 = () => {
                     }}
                   >
                     {/* Hexagonal Frame */}
-                    <motion.div
+                    <div
                       className="absolute inset-0 rounded-2xl"
                       style={{
                         background: "conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #ec4899, #06b6d4)",
                         padding: "3px",
-                      }}
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "linear",
                       }}
                     >
                       <div className="w-full h-full rounded-2xl bg-slate-900 p-2">
@@ -536,7 +530,7 @@ const HeroWeb3 = () => {
                           />
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Blockchain Status */}
                     <motion.div
@@ -596,8 +590,8 @@ const HeroWeb3 = () => {
                         <motion.div
                           key={tech.name}
                           className={`w-10 h-10 bg-gradient-to-r ${tech.color} rounded-lg flex items-center justify-center shadow-lg cursor-pointer relative overflow-hidden border border-white/10`}
-                          initial={{ scale: 0, rotate: -180, opacity: 0 }}
-                          animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
                           transition={{
                             delay: 2.2 + index * 0.15,
                             type: "spring",

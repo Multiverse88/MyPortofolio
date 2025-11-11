@@ -104,10 +104,22 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preconnect to improve loading performance */}
+        {/* Critical resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
         
+        {/* Preload critical assets */}
+        <link
+          rel="preload"
+          href="/images/ainan-profile.jpg"
+          as="image"
+          type="image/jpeg"
+          fetchPriority="high"
+        />
+        
+        {/* Favicon and app icons */}
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
@@ -127,6 +139,8 @@ export default function RootLayout({
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        
+        {/* Theme and viewport configuration */}
         <meta name="theme-color" content="#113F67" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         
@@ -135,16 +149,47 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         
-        {/* Preload critical resources */}
-        <link
-          rel="preload"
-          href="/images/ainan-profile.jpg"
-          as="image"
-          type="image/jpeg"
-        />
+        {/* Performance hints */}
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta name="format-detection" content="telephone=no" />
+        
+        {/* Prefetch next likely pages */}
+        <link rel="prefetch" href="/#about" />
+        <link rel="prefetch" href="/#experience" />
+        <link rel="prefetch" href="/#certificates" />
+        
+        {/* Critical CSS for above-the-fold content */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            .critical-css {
+              background-color: #0f172a;
+              color: #ffffff;
+              font-family: system-ui, -apple-system, sans-serif;
+            }
+            .hero-skeleton {
+              min-height: 100vh;
+              background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .loading-spinner {
+              width: 40px;
+              height: 40px;
+              border: 3px solid #334155;
+              border-top: 3px solid #06b6d4;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `
+        }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased critical-css`}
       >
         <ErrorBoundary>
           <ClientWrapper>

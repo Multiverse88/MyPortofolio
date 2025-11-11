@@ -10,14 +10,14 @@ const About = () => {
   const isTablet = useMediaQuery({ maxWidth: 1024 });
 
   const skills: Skill[] = [
-    { name: 'Node.js', level: 90, category: 'backend' },
-    { name: 'Google Cloud Platform', level: 85, category: 'tools' },
-    { name: 'React', level: 88, category: 'frontend' },
-    { name: 'Next.js', level: 85, category: 'frontend' },
-    { name: 'Sequelize', level: 82, category: 'database' },
-    { name: 'JavaScript', level: 90, category: 'frontend' },
-    { name: 'Tailwind CSS', level: 88, category: 'frontend' },
-    { name: 'API Development', level: 85, category: 'backend' },
+    { name: 'Node.js', level: 90, category: 'backend', proficiency: 'Expert' },
+    { name: 'Google Cloud Platform', level: 85, category: 'tools', proficiency: 'Advanced' },
+    { name: 'React', level: 88, category: 'frontend', proficiency: 'Expert' },
+    { name: 'Next.js', level: 85, category: 'frontend', proficiency: 'Advanced' },
+    { name: 'Sequelize', level: 82, category: 'database', proficiency: 'Advanced' },
+    { name: 'JavaScript', level: 90, category: 'frontend', proficiency: 'Expert' },
+    { name: 'Tailwind CSS', level: 88, category: 'frontend', proficiency: 'Expert' },
+    { name: 'API Development', level: 85, category: 'backend', proficiency: 'Advanced' },
   ];
 
   // iOS-style animation variants
@@ -109,7 +109,7 @@ const About = () => {
               variants={cardVariants}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-[#34699A] to-[#113F67] rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700">
+              <div className="bg-gradient-to-br from-[#34699A] to-[#113F67] rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-700">
                 <div className="bg-white rounded-2xl p-8 text-center">
                   
                   {/* Professional Photo */}

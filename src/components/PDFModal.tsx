@@ -338,11 +338,7 @@ const PDFModal: React.FC<PDFModalProps> = ({
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <motion.div
-                  className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                />
+                <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4 animate-pulse" />
                 <p className="text-cyan-300 text-lg font-medium">
                   Loading PDF...
                 </p>
@@ -426,15 +422,7 @@ const PDFModal: React.FC<PDFModalProps> = ({
               <div className="relative">
                 {isRendering && (
                   <div className="absolute inset-0 bg-slate-800/50 backdrop-blur-sm flex items-center justify-center z-10">
-                    <motion.div
-                      className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
+                    <div className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-pulse" />
                   </div>
                 )}
                 <canvas
