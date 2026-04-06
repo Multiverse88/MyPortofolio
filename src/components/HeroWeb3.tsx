@@ -406,7 +406,7 @@ const HeroWeb3 = () => {
                   transition={{ duration: 0.3 }}
                 />
                 <span className="relative z-10 flex items-center justify-center">
-                  🚀 {t('hero.buttons.launchProject')}
+                  🚀 {t('hero.buttons.getInTouch')}
                   <motion.span
                     className="ml-2 text-lg"
                     animate={{ x: [0, 5, 0] }}
@@ -433,7 +433,7 @@ const HeroWeb3 = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="flex items-center justify-center">
-                  📱 {t('hero.buttons.viewDapps')}
+                  📱 {t('hero.buttons.viewProjects')}
                   <motion.span
                     className="ml-2 opacity-0 group-hover:opacity-100"
                     initial={{ x: -10 }}

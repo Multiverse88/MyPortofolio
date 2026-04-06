@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Skill } from '@/types';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/LanguageContext';
@@ -11,11 +11,16 @@ import {
   HiSparkles, 
   HiGlobe 
 } from 'react-icons/hi';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const AboutWeb3 = () => {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const skillsContainerRef = useRef<HTMLDivElement>(null);
+  const skillCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const skillItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -70,6 +75,90 @@ const AboutWeb3 = () => {
       case 'database': return 'from-green-400 to-emerald-500';
       case 'tools': return 'from-orange-400 to-red-500';
       default: return 'from-gray-400 to-gray-600';
+    }
+  };
+
+  // GSAP Animations
+  useGSAP(() => {
+    if (!mounted || !skillsContainerRef.current) return;
+
+    // Animate skill cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(
+            skillCardsRef.current.filter(Boolean),
+            { opacity: 0, y: 40, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: 'power3.out',
+            }
+          );
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    if (skillsContainerRef.current) {
+      observer.observe(skillsContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, { dependencies: [mounted] });
+
+  // Skill item hover animations
+  const handleSkillHover = (index: number, isEnter: boolean) => {
+    const skillItem = skillItemsRef.current[index];
+    if (!skillItem) return;
+
+    if (isEnter) {
+      gsap.to(skillItem, {
+        x: 8,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+      gsap.to(skillItem.querySelector('.skill-dot'), {
+        scale: 1.6,
+        duration: 0.3,
+        ease: 'back.out',
+      });
+    } else {
+      gsap.to(skillItem, {
+        x: 0,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+      gsap.to(skillItem.querySelector('.skill-dot'), {
+        scale: 1,
+        duration: 0.3,
+        ease: 'back.out',
+      });
+    }
+  };
+
+  // Card hover animations
+  const handleCardHover = (index: number, isEnter: boolean) => {
+    const card = skillCardsRef.current[index];
+    if (!card) return;
+
+    if (isEnter) {
+      gsap.to(card, {
+        y: -8,
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    } else {
+      gsap.to(card, {
+        y: 0,
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
     }
   };
 
@@ -259,75 +348,176 @@ const AboutWeb3 = () => {
               </motion.div>
 
               {/* Technical Skills Section */}
-              <motion.div
-                variants={itemVariants}
-                className="portfolio-glass rounded-2xl p-6 border border-cyan-500/20"
+              <div
+                ref={skillsContainerRef}
+                className="portfolio-glass rounded-2xl p-8 border border-cyan-500/20 relative overflow-hidden"
               >
-                <div className="flex items-center mb-6">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mr-3">
-                    <span className="text-white text-sm font-bold">�</span>
+                {/* Background decoration */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl -z-0" />
+                <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl -z-0" />
+
+                <div className="flex items-center mb-8 relative z-10">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mr-4 shadow-lg shadow-cyan-500/50">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                     {t('about.skills.title')}
                   </h3>
                 </div>
 
-                <div className="space-y-5">
-                  {skills.map((skill, index) => (
-                    <motion.div
-                      key={skill.name}
-                      className="group"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-200 font-medium group-hover:text-white transition-colors">
-                          {skill.name}
-                        </span>
-                        <span className="text-cyan-400 font-bold text-sm">
-                          {skill.proficiency}
-                        </span>
+                {/* Skills Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                  {/* Frontend Skills */}
+                  <div
+                    ref={(el) => {
+                      if (el) skillCardsRef.current[0] = el;
+                    }}
+                    onMouseEnter={() => handleCardHover(0, true)}
+                    onMouseLeave={() => handleCardHover(0, false)}
+                    className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mr-3">
+                        <span className="text-white text-xs font-bold">Fe</span>
                       </div>
-                      <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden group-hover:bg-gray-700/70 transition-colors">
-                        <div className="flex items-center justify-center h-full space-x-1 px-2">
-                          {[...Array(5)].map((_, starIndex) => {
-                            const filled = starIndex < Math.ceil((skill.level / 100) * 5);
-                            return (
-                              <motion.div
-                                key={starIndex}
-                                className={`w-2 h-2 rounded-full ${
-                                  filled 
-                                    ? `bg-gradient-to-r ${getSkillColor(skill.category)}` 
-                                    : 'bg-gray-600'
-                                }`}
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                transition={{ 
-                                  duration: 0.3, 
-                                  delay: index * 0.1 + starIndex * 0.05,
-                                }}
-                                viewport={{ once: true }}
-                              />
-                            );
-                          })}
+                      <h4 className="font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors">Frontend</h4>
+                    </div>
+                    <div className="space-y-2">
+                      {skills.filter(s => s.category === 'frontend').map((skill, idx) => (
+                        <div
+                          key={skill.name}
+                          ref={(el) => {
+                            if (el) skillItemsRef.current[idx] = el;
+                          }}
+                          onMouseEnter={() => handleSkillHover(idx, true)}
+                          onMouseLeave={() => handleSkillHover(idx, false)}
+                          className="flex items-center group/item cursor-pointer"
+                        >
+                          <div 
+                            className="skill-dot w-2 h-2 rounded-full bg-cyan-400 mr-3"
+                          />
+                          <span className="text-gray-300 group-hover/item:text-cyan-300 transition-all text-sm">
+                            {skill.name}
+                          </span>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* Skills Footer */}
-                <motion.div 
-                  className="mt-6 pt-4 border-t border-gray-700/50"
-                  variants={itemVariants}
-                >
-                  <p className="text-gray-400 text-sm text-center">
-                    Skills rated by proficiency level: Beginner → Expert
-                  </p>
-                </motion.div>
-              </motion.div>
+                  {/* Backend Skills */}
+                  <div
+                    ref={(el) => {
+                      if (el) skillCardsRef.current[1] = el;
+                    }}
+                    onMouseEnter={() => handleCardHover(1, true)}
+                    onMouseLeave={() => handleCardHover(1, false)}
+                    className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center mr-3">
+                        <span className="text-white text-xs font-bold">Be</span>
+                      </div>
+                      <h4 className="font-bold text-purple-300 group-hover:text-purple-200 transition-colors">Backend</h4>
+                    </div>
+                    <div className="space-y-2">
+                      {skills.filter(s => s.category === 'backend').map((skill, idx) => (
+                        <div
+                          key={skill.name}
+                          ref={(el) => {
+                            if (el) skillItemsRef.current[idx + 10] = el;
+                          }}
+                          onMouseEnter={() => handleSkillHover(idx + 10, true)}
+                          onMouseLeave={() => handleSkillHover(idx + 10, false)}
+                          className="flex items-center group/item cursor-pointer"
+                        >
+                          <div 
+                            className="skill-dot w-2 h-2 rounded-full bg-purple-400 mr-3"
+                          />
+                          <span className="text-gray-300 group-hover/item:text-purple-300 transition-all text-sm">
+                            {skill.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Database Skills */}
+                  <div
+                    ref={(el) => {
+                      if (el) skillCardsRef.current[2] = el;
+                    }}
+                    onMouseEnter={() => handleCardHover(2, true)}
+                    onMouseLeave={() => handleCardHover(2, false)}
+                    className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 hover:border-green-400/50 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mr-3">
+                        <span className="text-white text-xs font-bold">Db</span>
+                      </div>
+                      <h4 className="font-bold text-green-300 group-hover:text-green-200 transition-colors">Database</h4>
+                    </div>
+                    <div className="space-y-2">
+                      {skills.filter(s => s.category === 'database').map((skill, idx) => (
+                        <div
+                          key={skill.name}
+                          ref={(el) => {
+                            if (el) skillItemsRef.current[idx + 20] = el;
+                          }}
+                          onMouseEnter={() => handleSkillHover(idx + 20, true)}
+                          onMouseLeave={() => handleSkillHover(idx + 20, false)}
+                          className="flex items-center group/item cursor-pointer"
+                        >
+                          <div 
+                            className="skill-dot w-2 h-2 rounded-full bg-green-400 mr-3"
+                          />
+                          <span className="text-gray-300 group-hover/item:text-green-300 transition-all text-sm">
+                            {skill.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tools & Platforms */}
+                  <div
+                    ref={(el) => {
+                      if (el) skillCardsRef.current[3] = el;
+                    }}
+                    onMouseEnter={() => handleCardHover(3, true)}
+                    onMouseLeave={() => handleCardHover(3, false)}
+                    className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-orange-400 to-red-500 flex items-center justify-center mr-3">
+                        <span className="text-white text-xs font-bold">Tl</span>
+                      </div>
+                      <h4 className="font-bold text-orange-300 group-hover:text-orange-200 transition-colors">Tools</h4>
+                    </div>
+                    <div className="space-y-2">
+                      {skills.filter(s => s.category === 'tools').map((skill, idx) => (
+                        <div
+                          key={skill.name}
+                          ref={(el) => {
+                            if (el) skillItemsRef.current[idx + 30] = el;
+                          }}
+                          onMouseEnter={() => handleSkillHover(idx + 30, true)}
+                          onMouseLeave={() => handleSkillHover(idx + 30, false)}
+                          className="flex items-center group/item cursor-pointer"
+                        >
+                          <div 
+                            className="skill-dot w-2 h-2 rounded-full bg-orange-400 mr-3"
+                          />
+                          <span className="text-gray-300 group-hover/item:text-orange-300 transition-all text-sm">
+                            {skill.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </motion.div>

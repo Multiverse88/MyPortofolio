@@ -28,49 +28,49 @@ interface Certificate {
 const certificates: Certificate[] = [
   {
     id: 1,
-    title: "Dicoding Backend JavaScript Developer",
+    title: "Menjadi Google Cloud Engineer",
     issuer: "Dicoding Indonesia",
-    date: "May 2024",
+    date: " 17 May 2024",
     description:
-      "Sertifikasi pengembangan backend menggunakan JavaScript, Node.js, dan framework terkini.",
+      "Pelajari dasar Python hingga library populer yang menjadi landasan tren industri data science, machine learning, dan back-end development..",
     image: "/images/sertifikat_course_133_2291673_170524140110_page-0001.jpg",
     pdfUrl: "/certificates/pdf/sertifikat_course_133_2291673_170524140110.pdf",
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.dicoding.com/certificates",
-    skills: ["Node.js", "Backend", "JavaScript", "REST API"],
+    skills: ["Google Cloud", "Back-End Developer", "Learning Path"],
     type: "pdf",
   },
   {
     id: 2,
-    title: "Full Stack Web Development",
+    title: "Belajar Dasar Pemprograman Javascript",
     issuer: "Dicoding Indonesia",
     date: "April 2024",
     description:
-      "Sertifikasi pengembangan web full stack dengan teknologi modern dan best practices.",
+      "Sertifikasi dasar-dasar pemrograman JavaScript dan pengembangan aplikasi modern.",
     image: "/images/sertifikat_course_256_2291673_280424121745_page-0001.jpg",
     pdfUrl: "/certificates/pdf/sertifikat_course_256_2291673_280424121745.pdf",
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.dicoding.com/certificates",
-    skills: ["Full Stack", "Web Development", "Frontend", "Backend"],
+    skills: ["Google Cloud", "React", "Front-End Web", "Back-End Developer", "Learning Path"],
     type: "pdf",
   },
   {
     id: 3,
-    title: "React Developer Fundamentals",
+    title: "Belajar Membuat Aplikasi Backend untuk Pemula dengan Google Cloud Platform",
     issuer: "Dicoding Indonesia",
     date: "May 2024",
     description:
-      "Sertifikasi pengembangan aplikasi web menggunakan React.js dan ecosystem-nya.",
+      "Sertifikasi pengembangan backend untuk pemula dengan Google Cloud Platform.",
     image: "/images/sertifikat_course_342_2291673_090524070630_page-0001.jpg",
     pdfUrl: "/certificates/pdf/sertifikat_course_342_2291673_090524070630.pdf",
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.dicoding.com/certificates",
-    skills: ["React", "JavaScript", "Frontend", "SPA"],
+    skills: ["Google Cloud", "Learning Path", "Back-End Developer", "Cloud Computing"],
     type: "pdf",
   },
   {
     id: 4,
-    title: "JavaScript Programming Fundamentals",
+    title: "Belajar Dasar AI",
     issuer: "Dicoding Indonesia",
     date: "May 2024",
     description:
@@ -79,49 +79,35 @@ const certificates: Certificate[] = [
     pdfUrl: "/certificates/pdf/sertifikat_course_653_2291673_140524232556.pdf",
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.dicoding.com/certificates",
-    skills: ["JavaScript", "Programming", "ES6+", "DOM"],
+    skills: ["AI", "Machine Learning", "Data Science", "Python"],
     type: "pdf",
   },
   {
     id: 5,
-    title: "MySQL Database Management",
+    title: "Belajar Penerapan Machine Learning dengan Google Cloud Platform",
     issuer: "Dicoding Indonesia",
     date: "May 2024",
     description:
-      "Sertifikasi manajemen database MySQL dan optimasi query untuk aplikasi web.",
+      "Sertifikasi penerapan machine learning dengan Google Cloud Platform.",
     image: "/images/sertifikat_course_658_2291673_230524154947_page-0001.jpg",
     pdfUrl: "/certificates/pdf/sertifikat_course_658_2291673_230524154947.pdf",
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.dicoding.com/certificates",
-    skills: ["MySQL", "Database", "SQL", "Query Optimization"],
+    skills: ["Google Cloud", "Machine Learning", "Python", "Data Science"],
     type: "pdf",
   },
   {
     id: 6,
-    title: "Google Cloud Platform Fundamentals",
+    title: "Memulai Dasar Pemrograman untuk Menjadi Pengembang Software",
     issuer: "Google Cloud",
     date: "2024",
     description:
-      "Fundamental knowledge of Google Cloud Platform services and cloud computing concepts.",
-    image: "/certificates/gcp-fundamentals.svg",
+      "Sertifikasi Pemrograman untuk Menjadi Pengembang Software.",
+    image: "/images/Screenshot 2026-04-06 133725.png",
     pdfUrl: undefined,
     fallbackImage: "/images/cert-placeholder.svg",
     verificationUrl: "https://www.cloudskillsboost.google/",
-    skills: ["GCP", "Cloud Computing", "Google Cloud", "Infrastructure"],
-    type: "image",
-  },
-  {
-    id: 7,
-    title: "Bangkit Academy 2024",
-    issuer: "Bangkit Academy led by Google, Tokopedia, Gojek & Traveloka",
-    date: "2024",
-    description:
-      "Comprehensive mobile development and machine learning program by leading Indonesian tech companies.",
-    image: "/certificates/bangkit-certificate.svg",
-    pdfUrl: undefined,
-    fallbackImage: "/images/cert-placeholder.svg",
-    verificationUrl: "https://grow.google/intl/id_id/bangkit/",
-    skills: ["Mobile Development", "Machine Learning", "Android", "Kotlin"],
+    skills: ["JavaScript", "Programming", "Infrastructure"],
     type: "image",
   },
 ];
@@ -287,7 +273,7 @@ const CertificatesWeb3 = () => {
               variants={cardVariants}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {certificates.map((cert) => (
+              {certificates.slice(0, 6).map((cert) => (
                   <motion.div
                     key={cert.id}
                     variants={cardVariants}
@@ -430,6 +416,42 @@ const CertificatesWeb3 = () => {
                     </div>
                   </motion.div>
                 ))}
+            </motion.div>
+
+            {/* View More Button */}
+            <motion.div 
+              variants={itemVariants} 
+              className="flex justify-center mt-12"
+            >
+              <motion.a
+                href="https://drive.google.com/drive/folders/1iMwNkGfZJnHP7bxTgiKyhmbIDLDnGMha?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 transition-all duration-300 shadow-lg hover:shadow-green-500/50"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -translate-x-full group-hover:translate-x-full" style={{animation: 'shimmer 2s infinite'}} />
+                
+                {/* Content */}
+                <span className="relative flex items-center space-x-2">
+                  <span>Lihat Sertifikat Lainnya</span>
+                  <svg 
+                    className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </span>
+              </motion.a>
             </motion.div>
 
             {/* Bottom Call to Action */}

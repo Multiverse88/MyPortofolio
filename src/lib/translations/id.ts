@@ -28,8 +28,8 @@ export const id = {
       possibilities: "Kemungkinan"
     },
     buttons: {
-      launchProject: "🚀 Lihat Proyek",
-      viewDApps: "📱 Lihat Karya",
+      getInTouch: "🚀 Hubungi Saya", 
+      viewProjects: "📱 Lihat Karya",
       viewWork: "📱 Lihat Karya"
     },
     status: {

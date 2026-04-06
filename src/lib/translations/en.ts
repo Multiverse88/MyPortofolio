@@ -28,9 +28,9 @@ export const en = {
       possibilities: "Possibilities"
     },
     buttons: {
-      launchProject: "🚀 View Projects", 
-      viewDApps: "📱 View Work",
-      viewWork: "📱 View Work"
+      getInTouch: "🚀 Get in Touch", 
+      viewProjects: "📱 View My Work",
+      viewWork: "📱 View My Work"
     },
     status: {
       connected: "🔗 Available for Work",

@@ -279,7 +279,7 @@ const Hero = () => {
 
                     {/* Skills Icons */}
                     <div className="flex justify-center space-x-3">
-                      {["⚛️", "🚀", "🎨", "💻"].map((icon, index) => (
+                      {["⚛️", "🎨"].map((icon, index) => (
                         <motion.div
                           key={index}
                           className="w-10 h-10 bg-gradient-to-r from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-lg"
