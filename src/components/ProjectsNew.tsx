@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useMediaQuery } from 'react-responsive';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from '@/contexts/LanguageContext';
 
 const projects = [
@@ -70,10 +69,17 @@ const projects = [
 
 const ProjectsNew = () => {
   const { t } = useTranslation();
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedPreview, setSelectedPreview] = useState<number | null>(null);
   const [previewLoading, setPreviewLoading] = useState<{ [key: number]: boolean }>({});
   const [showLoginInfo, setShowLoginInfo] = useState<number | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section id="projects" className="pt-12 pb-20 bg-white min-h-screen">

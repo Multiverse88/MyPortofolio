@@ -11,16 +11,11 @@ import {
   HiSparkles, 
   HiGlobe 
 } from 'react-icons/hi';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 const AboutWeb3 = () => {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const skillsContainerRef = useRef<HTMLDivElement>(null);
-  const skillCardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const skillItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -75,90 +70,6 @@ const AboutWeb3 = () => {
       case 'database': return 'from-green-400 to-emerald-500';
       case 'tools': return 'from-orange-400 to-red-500';
       default: return 'from-gray-400 to-gray-600';
-    }
-  };
-
-  // GSAP Animations
-  useGSAP(() => {
-    if (!mounted || !skillsContainerRef.current) return;
-
-    // Animate skill cards on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          gsap.fromTo(
-            skillCardsRef.current.filter(Boolean),
-            { opacity: 0, y: 40, scale: 0.95 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: 'power3.out',
-            }
-          );
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-
-    if (skillsContainerRef.current) {
-      observer.observe(skillsContainerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, { dependencies: [mounted] });
-
-  // Skill item hover animations
-  const handleSkillHover = (index: number, isEnter: boolean) => {
-    const skillItem = skillItemsRef.current[index];
-    if (!skillItem) return;
-
-    if (isEnter) {
-      gsap.to(skillItem, {
-        x: 8,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-      gsap.to(skillItem.querySelector('.skill-dot'), {
-        scale: 1.6,
-        duration: 0.3,
-        ease: 'back.out',
-      });
-    } else {
-      gsap.to(skillItem, {
-        x: 0,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-      gsap.to(skillItem.querySelector('.skill-dot'), {
-        scale: 1,
-        duration: 0.3,
-        ease: 'back.out',
-      });
-    }
-  };
-
-  // Card hover animations
-  const handleCardHover = (index: number, isEnter: boolean) => {
-    const card = skillCardsRef.current[index];
-    if (!card) return;
-
-    if (isEnter) {
-      gsap.to(card, {
-        y: -8,
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    } else {
-      gsap.to(card, {
-        y: 0,
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        duration: 0.3,
-        ease: 'power2.out',
-      });
     }
   };
 
@@ -349,7 +260,6 @@ const AboutWeb3 = () => {
 
               {/* Technical Skills Section */}
               <div
-                ref={skillsContainerRef}
                 className="portfolio-glass rounded-2xl p-8 border border-cyan-500/20 relative overflow-hidden"
               >
                 {/* Background decoration */}
@@ -371,12 +281,7 @@ const AboutWeb3 = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
                   {/* Frontend Skills */}
                   <div
-                    ref={(el) => {
-                      if (el) skillCardsRef.current[0] = el;
-                    }}
-                    onMouseEnter={() => handleCardHover(0, true)}
-                    onMouseLeave={() => handleCardHover(0, false)}
-                    className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300 group cursor-default"
+                    className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300 group cursor-default"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mr-3">
@@ -388,12 +293,7 @@ const AboutWeb3 = () => {
                       {skills.filter(s => s.category === 'frontend').map((skill, idx) => (
                         <div
                           key={skill.name}
-                          ref={(el) => {
-                            if (el) skillItemsRef.current[idx] = el;
-                          }}
-                          onMouseEnter={() => handleSkillHover(idx, true)}
-                          onMouseLeave={() => handleSkillHover(idx, false)}
-                          className="flex items-center group/item cursor-pointer"
+                          className="flex items-center group/item cursor-pointer hover:translate-x-2 transition-transform duration-300"
                         >
                           <div 
                             className="skill-dot w-2 h-2 rounded-full bg-cyan-400 mr-3"
@@ -408,12 +308,7 @@ const AboutWeb3 = () => {
 
                   {/* Backend Skills */}
                   <div
-                    ref={(el) => {
-                      if (el) skillCardsRef.current[1] = el;
-                    }}
-                    onMouseEnter={() => handleCardHover(1, true)}
-                    onMouseLeave={() => handleCardHover(1, false)}
-                    className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 group cursor-default"
+                    className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300 group cursor-default"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center mr-3">
@@ -425,12 +320,7 @@ const AboutWeb3 = () => {
                       {skills.filter(s => s.category === 'backend').map((skill, idx) => (
                         <div
                           key={skill.name}
-                          ref={(el) => {
-                            if (el) skillItemsRef.current[idx + 10] = el;
-                          }}
-                          onMouseEnter={() => handleSkillHover(idx + 10, true)}
-                          onMouseLeave={() => handleSkillHover(idx + 10, false)}
-                          className="flex items-center group/item cursor-pointer"
+                          className="flex items-center group/item cursor-pointer hover:translate-x-2 transition-transform duration-300"
                         >
                           <div 
                             className="skill-dot w-2 h-2 rounded-full bg-purple-400 mr-3"
@@ -445,12 +335,7 @@ const AboutWeb3 = () => {
 
                   {/* Database Skills */}
                   <div
-                    ref={(el) => {
-                      if (el) skillCardsRef.current[2] = el;
-                    }}
-                    onMouseEnter={() => handleCardHover(2, true)}
-                    onMouseLeave={() => handleCardHover(2, false)}
-                    className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 hover:border-green-400/50 transition-all duration-300 group cursor-default"
+                    className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 hover:border-green-400/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300 group cursor-default"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mr-3">
@@ -462,12 +347,7 @@ const AboutWeb3 = () => {
                       {skills.filter(s => s.category === 'database').map((skill, idx) => (
                         <div
                           key={skill.name}
-                          ref={(el) => {
-                            if (el) skillItemsRef.current[idx + 20] = el;
-                          }}
-                          onMouseEnter={() => handleSkillHover(idx + 20, true)}
-                          onMouseLeave={() => handleSkillHover(idx + 20, false)}
-                          className="flex items-center group/item cursor-pointer"
+                          className="flex items-center group/item cursor-pointer hover:translate-x-2 transition-transform duration-300"
                         >
                           <div 
                             className="skill-dot w-2 h-2 rounded-full bg-green-400 mr-3"
@@ -482,12 +362,7 @@ const AboutWeb3 = () => {
 
                   {/* Tools & Platforms */}
                   <div
-                    ref={(el) => {
-                      if (el) skillCardsRef.current[3] = el;
-                    }}
-                    onMouseEnter={() => handleCardHover(3, true)}
-                    onMouseLeave={() => handleCardHover(3, false)}
-                    className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-300 group cursor-default"
+                    className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300 group cursor-default"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-orange-400 to-red-500 flex items-center justify-center mr-3">
@@ -499,12 +374,7 @@ const AboutWeb3 = () => {
                       {skills.filter(s => s.category === 'tools').map((skill, idx) => (
                         <div
                           key={skill.name}
-                          ref={(el) => {
-                            if (el) skillItemsRef.current[idx + 30] = el;
-                          }}
-                          onMouseEnter={() => handleSkillHover(idx + 30, true)}
-                          onMouseLeave={() => handleSkillHover(idx + 30, false)}
-                          className="flex items-center group/item cursor-pointer"
+                          className="flex items-center group/item cursor-pointer hover:translate-x-2 transition-transform duration-300"
                         >
                           <div 
                             className="skill-dot w-2 h-2 rounded-full bg-orange-400 mr-3"
